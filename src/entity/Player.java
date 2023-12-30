@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class Player extends Entity{
      GamePanel gp;
+     int picSpeedController=1;
     KeyHandler keyHandler;
     public Player(GamePanel gp, KeyHandler keyHandler){
         this.gp=gp;
@@ -25,6 +26,15 @@ public class Player extends Entity{
     }
     public void getPlayerImage(){
         try{
+//
+//            up1= ImageIO.read(getClass().getResourceAsStream("/customPlayer/up_left.png"));
+//            up2= ImageIO.read(getClass().getResourceAsStream("/customPlayer/up_right.png"));
+//            down1= ImageIO.read(getClass().getResourceAsStream("/customPlayer/down_left.png"));
+//            down2= ImageIO.read(getClass().getResourceAsStream("/customPlayer/down_right.png"));
+//            left1= ImageIO.read(getClass().getResourceAsStream("/customPlayer/left_left.png"));
+//            left2= ImageIO.read(getClass().getResourceAsStream("/customPlayer/left_right.png"));
+//            right1= ImageIO.read(getClass().getResourceAsStream("/customPlayer/right_right.png"));
+//            right2= ImageIO.read(getClass().getResourceAsStream("/customPlayer/right_left.png"));
             up1= ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
             up2= ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
             down1= ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
@@ -41,27 +51,66 @@ public class Player extends Entity{
         //we are going to change player position in this function
         if(keyHandler.upPressed==true||keyHandler.downPressed==true||keyHandler.leftPressed==true||keyHandler.rightPressed==true) {
 
-            if (keyHandler.upPressed == true) {
+             if (keyHandler.upPressed == true && keyHandler.rightPressed == true) {
+                direction = "up";
+                picSpeedController=2;
+                y -= (speed-1);
+                x += (speed-1);
+            }else if (keyHandler.upPressed == true && keyHandler.leftPressed == true) {
+                 direction = "up";
+                 picSpeedController=2;
+                 y -= (speed-1);
+                 x -= (speed-1);
+             }else if (keyHandler.downPressed == true && keyHandler.rightPressed == true) {
+                direction = "down";
+                picSpeedController=2;
+                y += (speed-1);
+                x += (speed-1);
+            }else if (keyHandler.downPressed == true && keyHandler.leftPressed == true) {
+                 direction = "down";
+                 picSpeedController=2;
+                 y += (speed-1);
+                 x -= (speed-1);
+             }else
+             if (keyHandler.upPressed == true) {
+                picSpeedController=1;
                 direction = "up";
                 y -= speed;
             } else if (keyHandler.downPressed == true) {
                 direction = "down";
+                picSpeedController=1;
                 y += speed;
             } else if (keyHandler.leftPressed == true) {
                 direction = "left";
+                picSpeedController=1;
                 x -= speed;
             } else if (keyHandler.rightPressed == true) {
                 direction = "right";
+                picSpeedController=1;
                 x += speed;
             }
+
+
             spriteCounter++;
-            if (spriteCounter > 10) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
+            if(picSpeedController==1) {
+                if (spriteCounter > 10) {
+                    if (spriteNum == 1) {
+                        spriteNum = 2;
+                    } else if (spriteNum == 2) {
+                        spriteNum = 1;
+                    }
+                    spriteCounter = 0;
                 }
-                spriteCounter = 0;
+            } else if (picSpeedController==2) {
+
+                if (spriteCounter > 10) {
+                    if (spriteNum == 1) {
+                        spriteNum = 2;
+                    } else if (spriteNum == 2) {
+                        spriteNum = 1;
+                    }
+                    spriteCounter = 0;
+                }
             }
         }
 
