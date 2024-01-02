@@ -1,6 +1,7 @@
 package Main;
 
 import entity.Player;
+import title.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +14,11 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public final int tileSize =originalTitleSize*scale; // now it will show the tile size to the screen
 
     //now screen size
-    final int maxScreenCol=16; //here will be 16 column of titles
-    final int maxScreenRow=12; //here will be 12 row of titles
+    public final int maxScreenCol=16; //here will be 16 column of titles
+    public final int maxScreenRow=12; //here will be 12 row of titles
 
-    final int screenWidth= tileSize*maxScreenCol; //768 pixel width
-    final int screenHeight= tileSize*maxScreenRow; //576 pixel height
+    public final int screenWidth= tileSize*maxScreenCol; //768 pixel width
+    public final int screenHeight= tileSize*maxScreenRow; //576 pixel height
 
     //FPS
     int FPS=60;
@@ -34,10 +35,8 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     //Adding Player class
     Player player= new Player(this,keyHandler);
 
-    //Set Player default Position
-    int playerX=100;
-    int playerY=100;
-    int playerSpeed=4;
+    //Adding tiles
+    TileManager tileManager= new TileManager(this);
 
 
     //Now i am creating constructor
@@ -65,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         double drawInterval= 1000000000/FPS; //1 billion nano second //0.016666 seconds
         double nextDrawTime= System.nanoTime()+drawInterval;
 
-        while (gameThread !=null){ //this means, as long as this gameThread exists , it repeats the process that is writen inside of the these brackets
+        while (gameThread !=null){ //this means, as long as this gameThread exists , it repeats the process that is written inside of the these brackets
             //System.out.println("Game loop is running");
             // in this loop we will do two things here
 
@@ -105,6 +104,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         //this graphics are like my pencil
         super.paintComponent(g);
         Graphics2D g2= (Graphics2D)g;
+        tileManager.draw(g2);
         player.draw(g2);
         g2.dispose();
         //dispose() => Dispose of this graphics context and release any system resources that it is using
