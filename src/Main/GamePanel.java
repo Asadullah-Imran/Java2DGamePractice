@@ -1,7 +1,7 @@
 package Main;
 
 import entity.Player;
-import title.TileManager;
+import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,8 +9,8 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable  { //so my Game panel is inherited of JPanel
     //Screen settings
     //Now i am doing some screen settings
-    final int originalTitleSize=16; //we will create our every characfter or anything using 16x16 pixel it is said original tile size because we will scale it  , look out the next variable
-    final int scale=3; //now it will (originalTitleSize x scale) so i will get 48x48 pixel character so that in my monitor my character will look bigger
+    public final int originalTitleSize=16; //we will create our every characfter or anything using 16x16 pixel it is said original tile size because we will scale it  , look out the next variable
+    public final int scale=3; //now it will (originalTitleSize x scale) so i will get 48x48 pixel character so that in my monitor my character will look bigger
     public final int tileSize =originalTitleSize*scale; // now it will show the tile size to the screen
 
     //now screen size
@@ -20,8 +20,18 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public final int screenWidth= tileSize*maxScreenCol; //768 pixel width
     public final int screenHeight= tileSize*maxScreenRow; //576 pixel height
 
+
+    //World Setting
+    public final int maxWorldRow=50;
+    public final int maxWorldCol=50;
+    public final int worldWidth=tileSize* maxScreenCol;
+    public final int worldHeight=tileSize* maxScreenRow;
+
+
     //FPS
     int FPS=60;
+
+    TileManager tileM= new TileManager(this);
 
     //instantiate KeyHandler
     KeyHandler keyHandler= new KeyHandler();
@@ -33,10 +43,12 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     Thread gameThread;
 
     //Adding Player class
-    Player player= new Player(this,keyHandler);
+    public Player player= new Player(this,keyHandler);
 
-    //Adding tiles
-    TileManager tileManager= new TileManager(this);
+    //Set Player default Position
+    int playerX=100;
+    int playerY=100;
+    int playerSpeed=4;
 
 
     //Now i am creating constructor
@@ -64,7 +76,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         double drawInterval= 1000000000/FPS; //1 billion nano second //0.016666 seconds
         double nextDrawTime= System.nanoTime()+drawInterval;
 
-        while (gameThread !=null){ //this means, as long as this gameThread exists , it repeats the process that is written inside of the these brackets
+        while (gameThread !=null){ //this means, as long as this gameThread exists , it repeats the process that is writen inside of the these brackets
             //System.out.println("Game loop is running");
             // in this loop we will do two things here
 
@@ -104,7 +116,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         //this graphics are like my pencil
         super.paintComponent(g);
         Graphics2D g2= (Graphics2D)g;
-        tileManager.draw(g2);
+       tileM.draw(g2);
         player.draw(g2);
         g2.dispose();
         //dispose() => Dispose of this graphics context and release any system resources that it is using
