@@ -1,4 +1,4 @@
-package title;
+package tile;
 
 import Main.GamePanel;
 
@@ -16,88 +16,94 @@ public class TileManager {
     public TileManager(GamePanel gp){
         this.gp=gp;
         tile= new Tile[10];
-        mapTileNum= new int[gp.maxScreenCol][gp.maxScreenRow];
-        loadMap();
+        mapTileNum= new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
+        loadMap();
     }
+
     public void getTileImage(){
         try{
             tile[0]= new Tile();
             tile[0].image= ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
-
             tile[1]= new Tile();
             tile[1].image= ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
-
             tile[2]= new Tile();
             tile[2].image= ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
+            tile[3]= new Tile();
+            tile[3].image= ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
+            tile[4]= new Tile();
+            tile[4].image= ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
+            tile[5]= new Tile();
+            tile[5].image= ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 
 
-    //to create map
     public void loadMap(){
-
         try{
-            InputStream is= getClass().getResourceAsStream("/maps/map01.txt");
+            InputStream is= getClass().getResourceAsStream("/maps/world01.txt");
             BufferedReader br= new BufferedReader(new InputStreamReader(is));
+            int col=0;
+            int row=0;
+            while (col<gp.maxWorldCol && row<gp.maxWorldRow){
+                String line= br.readLine();
+                while(col<gp.maxWorldCol){
+                    String numbers[]= line.split(" ");
+                    int num= Integer.parseInt(numbers[col]);
+                    mapTileNum[col][row]=num;
+                    col++;
+                }
 
-
-        int col=0;
-        int row=0;
-
-        while(col<gp.maxScreenCol && row<gp.maxScreenRow) {
-
-            String line = br.readLine();
-
-            while (col<gp.maxScreenCol){
-                String numbers[] =line.split(" ");
-
-                int num=Integer.parseInt(numbers[col]);
-
-                mapTileNum[col][row]=num;
-                col++;
+                if(col==gp.maxWorldCol){
+                    col=0;
+                    row++;
+                }
             }
-            if(col==gp.maxScreenCol){
-                col=0;
-                row++;
-            }
-
-            }
-        br.close();
-
+            br.close();
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
-    public  void draw(Graphics2D g2){
-//        g2.drawImage(tile[0].image,0,0,gp.tileSize,gp.tileSize,null);
-//        g2.drawImage(tile[1].image,48,0,gp.tileSize,gp.tileSize,null);
-//        g2.drawImage(tile[2].image,96,0,gp.tileSize,gp.tileSize,null);
+    public void draw(Graphics2D g2){
+        int worldCol=0;
+        int worldRow=0;
+//        int x=0;
+//        int y=0;
 
-        //above process are too typing process so we will try with while loop to create tiles
 
-        int col=0;
-        int row=0;
-        int x=0,y=0;
+        while (worldCol<gp.maxWorldCol && worldRow<gp.maxWorldRow){
+            int tileNum= mapTileNum[worldCol][worldRow];
 
-        while (col<gp.maxScreenCol&&row<gp.maxScreenRow){
+            int worldX=worldCol* gp.tileSize;
+            int worldY=worldRow* gp.tileSize;
+            int screenX= worldX-gp.player.worldX + gp.player.screenX;
+            int screenY= worldY-gp.player.worldY + gp.player.screenY;
 
-            int titleNum=mapTileNum[col][row];
 
-            g2.drawImage(tile[titleNum].image, x,y,gp.tileSize,gp.tileSize,null);
-            col++;
-            x+=gp.tileSize;
-            if(col==gp.maxScreenCol){
-                col=0;
-                x=0;
-                y+=gp.tileSize;
-                row++;
+            //this process is for not drawing the whole world map but the map tiles we needed only
+            if(worldX+ gp.tileSize>gp.player.worldX-gp.player.screenX&&
+                    worldX-gp.tileSize<gp.player.worldX+gp.player.screenX&&
+                    worldY+ gp.tileSize>gp.player.worldY-gp.player.screenY&&
+                    worldY- gp.tileSize<gp.player.worldY+gp.player.screenY
+            ){
+
+            g2.drawImage(tile[tileNum].image,screenX,screenY,gp.tileSize,gp.tileSize,null);
+            }
+
+            worldCol++;
+//            x+=gp.tileSize;
+
+
+            if(worldCol==gp.maxWorldCol){
+                worldCol=0;
+//                x=0;
+                worldRow++;
+//                y+=gp.tileSize;
             }
         }
-
     }
+
+
 }
