@@ -9,9 +9,9 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable  { //so my Game panel is inherited of JPanel
     //Screen settings
     //Now i am doing some screen settings
-    public final int originalTitleSize=16; //we will create our every characfter or anything using 16x16 pixel it is said original tile size because we will scale it  , look out the next variable
+    public final int originalTitleSize=16; //we will create our every characfter or anything using 16x16 pixel it is said original tiles size because we will scale it  , look out the next variable
     public final int scale=3; //now it will (originalTitleSize x scale) so i will get 48x48 pixel character so that in my monitor my character will look bigger
-    public final int tileSize =originalTitleSize*scale; // now it will show the tile size to the screen
+    public final int tileSize =originalTitleSize*scale; // now it will show the tiles size to the screen
 
     //now screen size
     public final int maxScreenCol=16; //here will be 16 column of titles
