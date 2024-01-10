@@ -1,6 +1,7 @@
 package Main;
 
 import entity.Player;
+import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,19 +9,29 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable  { //so my Game panel is inherited of JPanel
     //Screen settings
     //Now i am doing some screen settings
-    final int originalTitleSize=16; //we will create our every characfter or anything using 16x16 pixel it is said original tile size because we will scale it  , look out the next variable
-    final int scale=3; //now it will (originalTitleSize x scale) so i will get 48x48 pixel character so that in my monitor my character will look bigger
+    public final int originalTitleSize=16; //we will create our every characfter or anything using 16x16 pixel it is said original tile size because we will scale it  , look out the next variable
+    public final int scale=3; //now it will (originalTitleSize x scale) so i will get 48x48 pixel character so that in my monitor my character will look bigger
     public final int tileSize =originalTitleSize*scale; // now it will show the tile size to the screen
 
     //now screen size
-    final int maxScreenCol=16; //here will be 16 column of titles
-    final int maxScreenRow=12; //here will be 12 row of titles
+    public final int maxScreenCol=16; //here will be 16 column of titles
+    public final int maxScreenRow=12; //here will be 12 row of titles
 
-    final int screenWidth= tileSize*maxScreenCol; //768 pixel width
-    final int screenHeight= tileSize*maxScreenRow; //576 pixel height
+    public final int screenWidth= tileSize*maxScreenCol; //768 pixel width
+    public final int screenHeight= tileSize*maxScreenRow; //576 pixel height
+
+
+    //World Setting
+    public final int maxWorldRow=50;
+    public final int maxWorldCol=50;
+    public final int worldWidth=tileSize* maxScreenCol;
+    public final int worldHeight=tileSize* maxScreenRow;
+
 
     //FPS
     int FPS=60;
+
+    TileManager tileM= new TileManager(this);
 
     //instantiate KeyHandler
     KeyHandler keyHandler= new KeyHandler();
@@ -32,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     Thread gameThread;
 
     //Adding Player class
-    Player player= new Player(this,keyHandler);
+    public Player player= new Player(this,keyHandler);
 
     //Set Player default Position
     int playerX=100;
@@ -105,6 +116,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         //this graphics are like my pencil
         super.paintComponent(g);
         Graphics2D g2= (Graphics2D)g;
+       tileM.draw(g2);
         player.draw(g2);
         g2.dispose();
         //dispose() => Dispose of this graphics context and release any system resources that it is using
