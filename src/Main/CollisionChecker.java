@@ -64,4 +64,92 @@ public class CollisionChecker {
         }
     }
 
+    //part 8 Object Interaction part starts
+
+    public int checkObject(Entity entity, boolean player){
+        int index =999;
+
+        for(int i=0; i<gp.obj.length;i++){
+            if(gp.obj[i]!= null){
+                //Get entity solid Area Position
+                entity.solidArea.x=entity.worldX + entity.solidArea.x;
+                entity.solidArea.y=entity.worldY + entity.solidArea.y;
+                //Get the object's solid Area position
+                gp.obj[i].solidArea.x=gp.obj[i].worldX + gp.obj[i].solidArea.x;
+                gp.obj[i].solidArea.y=gp.obj[i].worldY + gp.obj[i].solidArea.y;
+
+                switch (entity.direction){
+                    case "up":
+                        entity.solidArea.y-=entity.speed;
+                        //rectangle class has a method named intersects to check two rectangeles are overlapperd or not
+                        if(entity.solidArea.intersects(gp.obj[i].solidArea)){
+                            System.out.println("up collision");
+                        //check the object is solid or not
+                        if(gp.obj[i].collision==true){
+                            entity.collisionOn=true;
+                        }
+                        //check this is a player or not (it could be a monster or other NPC)
+                        if(player==true){
+                            index=i;
+                        }
+                        }
+
+
+                        break;
+                    case "down":
+                        entity.solidArea.y+=entity.speed;
+                        if(entity.solidArea.intersects(gp.obj[i].solidArea)){
+                            System.out.println("down collision");
+                        //check the object is solid or not
+                        if(gp.obj[i].collision==true){
+                            entity.collisionOn=true;
+                        }
+                        //check this is a player or not (it could be a monster or other NPC)
+                        if(player==true){
+                            index=i;
+                        }
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x-=entity.speed;
+                        if(entity.solidArea.intersects(gp.obj[i].solidArea)){
+                            System.out.println("left collision");
+                        //check the object is solid or not
+                        if(gp.obj[i].collision==true){
+                            entity.collisionOn=true;
+                        }
+                        //check this is a player or not (it could be a monster or other NPC)
+                        if(player==true){
+                            index=i;
+                        }
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.x+=entity.speed;
+                        if(entity.solidArea.intersects(gp.obj[i].solidArea)){
+                            System.out.println("right collision");
+                        //check the object is solid or not
+                        if(gp.obj[i].collision==true){
+                            entity.collisionOn=true;
+                        }
+                        //check this is a player or not (it could be a monster or other NPC)
+                        if(player==true){
+                            index=i;
+                        }
+                        }
+                        break;
+                }
+                // reset the value
+                entity.solidArea.x= entity.solidAreaDefaultX;
+                entity.solidArea.y= entity.solidAreaDefaultY;
+
+                gp.obj[i].solidArea.x=gp.obj[i].solidAreaDefaultX;
+                gp.obj[i].solidArea.y=gp.obj[i].solidAreaDefaultY ;
+            }
+        }
+
+        return index;
+    }
+    //part 8 Object Interaction part ends
+
 }

@@ -183,6 +183,13 @@ class Player{
     - 
 
 ### Part 8 - Object Interaction
+1. first go to Entity class and then create a new two variables ``public int solidAreaDefaultX,solidAreaDefaultY;``
+2. and go to `Player` class and the solidAreaDefaultX and solidAreaDefaultY values as the solidArea x and y. we are just saving it because we need to change the value of solid area x and y.
+3. now in `SuperObject` class intantiate `Rectangle` class named `solidArea` and  add default value of as (0,0 and the height and width) as i need to make solid whole object area. and also add defaultX and defaultY values .
+4. set collision true of solid object. 
+5. now in CollisionChecker class we will create a method called checkObject which has integer return type and it will caught two parameters entity and boolean data. so first we recieve entity so player or maybe other character we will check also that this entity is player or not . and it returns the index number of object.
+6. add the `checkObject` method in the player class;
+6. now create a new method named `pickUpObject` which take index number as parameter.
 
 
 

@@ -13,6 +13,10 @@ public class Player extends Entity{
     KeyHandler keyHandler;
     public final int screenX;
     public final int screenY;
+    //part 8 Object Interaction part starts
+    public  int hasKey=0;
+    //part 8 Object Interaction part ends
+
     public Player(GamePanel gp, KeyHandler keyHandler){
         this.gp=gp;
         this.keyHandler=keyHandler;
@@ -23,6 +27,12 @@ public class Player extends Entity{
         solidArea= new Rectangle();
         solidArea.x=8;
         solidArea.y=16;
+
+        //part 8 Object Interaction part starts
+        solidAreaDefaultX=solidArea.x;
+        solidAreaDefaultY=solidArea.y;
+        //part 8 Object Interaction part  ends
+
         solidArea.width=32;
         solidArea.height=32;
         //part 6 collision part ends
@@ -68,8 +78,18 @@ public class Player extends Entity{
             }
 
             //part 6 collision part starts
+            //check Tile collision
             collisionOn = false;
             gp.cChecker.checkTile(this);
+
+            //part 8 Object Interaction part starts
+            //Check Object collision
+            int objIndex=gp.cChecker.checkObject(this,true);
+            pickUpObject(objIndex);
+
+            //part 8 Object Interaction part ends
+
+
 
             //if collisionOn is false then player can be able to move
             if(collisionOn==false){
@@ -98,10 +118,35 @@ public class Player extends Entity{
                 spriteCounter = 0;
             }
         }
-        System.out.println("x: "+ worldX/gp.tileSize);
-        System.out.println("y: "+ worldY/gp.tileSize);
+        //checking the player position
+//        System.out.println("x: "+ worldX/gp.tileSize);
+//        System.out.println("y: "+ worldY/gp.tileSize);
 
     }
+    //part 8 Object Interaction part starts
+    public void pickUpObject(int i){
+        //if index is 999 that means it didn't touch any objects
+        // if index is not 999 that means it touched any objects'
+        if(i!=999){
+            String objectName = gp.obj[i].name;
+            switch(objectName){
+                case "Key":
+                    hasKey++;
+                    gp.obj[i] =null;
+                    System.out.println("Key:"+ hasKey);
+                    break;
+                case "Door":
+                    if(hasKey>0){
+                        gp.obj[i] =null;
+                        hasKey--;
+                    }
+                    System.out.println("Key:"+ hasKey);
+                    break;
+
+            }
+        }
+    }
+    //part 8 Object Interaction part ends
     public  void draw( Graphics2D g2){
 //        g2.setColor(Color.WHITE);
 //        g2.fillRect(x,y,gp.tileSize,gp.tileSize);

@@ -15,5 +15,8 @@ public class Entity {
 
     //part 6 collision
     public Rectangle solidArea;
+    //part 8 Object Interaction part starts
+    public int solidAreaDefaultX,solidAreaDefaultY;
+    //part 8 Object Interaction part  ends
     public boolean collisionOn= false;
 }
