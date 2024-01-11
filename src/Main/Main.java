@@ -20,6 +20,9 @@ public class Main {
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+        //part 7 Object Placement part starts
+        gamePanel.setupGame();
+        //part 7 Object Placement part ends
 
         gamePanel.startGameThread();
     }

@@ -168,5 +168,43 @@ class Player{
 
 ### Part 7 - Object placement
 1. in res folder create an another folder namded objects and upload the neccessary image for objects (obviously think about the size)
-2. now create a package in src folder named `object` and in this package create a class named `SuperObject` 
-2. 
+2. now create a package in src folder named `object` and in this package create a class named `SuperObject` . This class is parent class of all object classes. it is kind of simmilar of Entity class. and added needed properties variable
+3. now create another class named `OBJ_Key` for key object which will inherited SuperObject. add name , image etc.
+4. Now in `GamePanel` class we create array of objects like we created for our Tile class. 
+5. Now create a new class named `AssetSetter` in main package (which take GamePanes as parameter) where we will handle the placement for our objects // (we do GamePanel as a parameter or something else it actually for when we do not want to write in that classs {GamePanel} but somwwhere else); and intantiate in GamePanel.
+6. So now we are going to instantiate some default objects and place them on the map. so now we are gonna use the `obj` array.
+    - created a method named `setObject` in `AssetSetter` to set the object in the map
+    - in this method we are gonna intialized the obj array and set the object in different places . using x position and y position.
+7. In `GamePanel` class create a method named `setUpGame` and in that class call the `setObject` method from assetSetter and call the `setupGame` method before the game start so we need to call this method in main class before the gamethread start.
+8. All position are set.! Now we need to draw the object.
+    - create a draw method in SuperObject Method.
+    - now we do the same thing we did before for Tile drawing. so we need to find out objects image and screenX and screenY .
+    - Finally Implement the draw method in `GamePanel` class
+    - 
+
+### Part 8 - Object Interaction
+
+
+
+### Part 9 - Object Interaction
+### Part 10 - Object Interaction
+### Part 11 - Object Interaction
+### Part 12 - Object Interaction
+### Part 13 - Object Interaction
+### Part 14 - Object Interaction
+### Part 15 - Object Interaction
+### Part 16 - Object Interaction
+### Part 17 - Object Interaction
+### Part 18 - Object Interaction
+### Part 19 - Object Interaction
+### Part 20 - Object Interaction
+### Part 21 - Object Interaction
+### Part 22 - Object Interaction
+### Part 23 - Object Interaction
+### Part 24 - Object Interaction
+### Part 25 - Object Interaction
+### Part 26 - Object Interaction
+### Part 27 - Object Interaction
+### Part 28 - Object Interaction
+### Part 29 - Object Interaction
+

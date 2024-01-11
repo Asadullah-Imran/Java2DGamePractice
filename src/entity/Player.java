@@ -98,6 +98,8 @@ public class Player extends Entity{
                 spriteCounter = 0;
             }
         }
+        System.out.println("x: "+ worldX/gp.tileSize);
+        System.out.println("y: "+ worldY/gp.tileSize);
 
     }
     public  void draw( Graphics2D g2){

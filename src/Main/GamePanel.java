@@ -1,6 +1,7 @@
 package Main;
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -45,14 +46,22 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public CollisionChecker cChecker= new CollisionChecker(this);
     //part 6 collision part ends
 
+
+
     //Adding Player class
+
     public Player player= new Player(this,keyHandler);
 
-    //Set Player default Position
-    int playerX=100;
-    int playerY=100;
-    int playerSpeed=4;
+    //part 7 Object Placement part starts
+    public AssetSetter aSetter = new AssetSetter(this);
+    public SuperObject obj[]= new SuperObject[10]; //set the number of objects 10;
+    //part 7 Object Placement part ends
 
+    //Set Player default Position
+//    int playerX=100;
+//    int playerY=100;
+//    int playerSpeed=4;
+//no needed above data now.
 
     //Now i am creating constructor
     public GamePanel(){
@@ -63,6 +72,11 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         this.setFocusable(true); // setFocusable(true) => with this GamePanel can be "focused " to recieve key input
     }
 
+    //part 7 Object Placement part starts
+    public void setupGame(){
+    aSetter.setObject();
+    }
+    //part 7 Object Placement part ends
 
     //to create a gameThread start function
     public void startGameThread(){
@@ -112,6 +126,8 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         //we are going to change player position in this function
 
         player.update();
+//        System.out.println(playerX);
+//        System.out.println(playerY);
 
     }
     //the draw function for run thread
@@ -119,7 +135,15 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         //this graphics are like my pencil
         super.paintComponent(g);
         Graphics2D g2= (Graphics2D)g;
+        //Drawing the tile
        tileM.draw(g2);
+       //Drawing the Objects
+        for(int i=0; i<obj.length;i++){
+            if(obj[i]!=null){
+                obj[i].draw(g2,this);
+            }
+        }
+       //Drawing the Player
         player.draw(g2);
         g2.dispose();
         //dispose() => Dispose of this graphics context and release any system resources that it is using
