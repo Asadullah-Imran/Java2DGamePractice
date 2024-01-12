@@ -11,8 +11,9 @@
 - [All Parts ](#all-parts)
     - [Part 1](#part-1)
     - [Part 6 Collision Detection](#part-6---collision-detection)
-    - [Part 7 Object Placement](#part-7---object-placement)
-    - 
+    - [Part 7 Object Placement](#part-7---object-placement) 
+    - [Part 8 Object Interaction](#part-8---object-interaction)
+      - 
   
 
 ## All Parts
@@ -193,7 +194,16 @@ class Player{
 
 
 
-### Part 9 - Object Interaction
+### Part 9 - Sound
+1. create a new folder in res folder named `sound` and add music in there. we need to add `wav` extension music in java `mp3    ` dosen't work here.
+2. create a new class named `Sound` in main package and create a Clip (which is used to open audio file in java)
+   - create a an array of URL  to store the path of music we will also set the size of the array is 30
+   - create a constructor and set all the audio file path in `soundURL` array.
+   - now create four method of `setFile`,`play`,`loop`,`stop` and add functionablity
+3. Now intantiate the `Sound` class in `GampePanel` class
+    - create methods of `playMusic` `stopMusic` and `playSE`
+    - now call the `playMusic` method in `setupGame` method. 
+
 ### Part 10 - Object Interaction
 ### Part 11 - Object Interaction
 ### Part 12 - Object Interaction

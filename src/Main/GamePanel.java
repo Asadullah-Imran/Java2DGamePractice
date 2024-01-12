@@ -29,13 +29,19 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public final int worldHeight=tileSize* maxScreenRow;
 
 
-    //FPS
+        //FPS
     int FPS=60;
 
+        //System
     TileManager tileM= new TileManager(this);
 
     //instantiate KeyHandler
     KeyHandler keyHandler= new KeyHandler();
+
+    //part 9 Sound part starts
+    Sound sound = new Sound();
+    //part 9 Sound part ends
+
 
 
     //>so to do this animation in our game we need to create a time in our game we need to start this game clock.
@@ -50,18 +56,14 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
 
     //Adding Player class
 
-    public Player player= new Player(this,keyHandler);
 
     //part 7 Object Placement part starts
     public AssetSetter aSetter = new AssetSetter(this);
+            //Entity and Object
+    public Player player= new Player(this,keyHandler);
     public SuperObject obj[]= new SuperObject[10]; //set the number of objects 10;
     //part 7 Object Placement part ends
 
-    //Set Player default Position
-//    int playerX=100;
-//    int playerY=100;
-//    int playerSpeed=4;
-//no needed above data now.
 
     //Now i am creating constructor
     public GamePanel(){
@@ -75,6 +77,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     //part 7 Object Placement part starts
     public void setupGame(){
     aSetter.setObject();
+    playMusic(0); // 0 -> because we want to play first index of the music
     }
     //part 7 Object Placement part ends
 
@@ -149,4 +152,20 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         //dispose() => Dispose of this graphics context and release any system resources that it is using
 
     }
+
+    // part 9 sound part start
+    // now creating a method for playing music
+    public void playMusic(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic(){
+        sound.stop();
+    }
+    public void playSE(int i){//play sound Effects
+        sound.setFile(i);
+        sound.play();
+    }
+    // part 9 sound part ends
 }
