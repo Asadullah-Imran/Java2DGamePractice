@@ -60,7 +60,9 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
 
     //part 7 Object Placement part starts
     public AssetSetter aSetter = new AssetSetter(this);
+
             //Entity and Object
+
     //part 10 UI part starts
     public UI ui = new UI(this);
     //part 10 UI part ends
@@ -69,6 +71,10 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public SuperObject obj[]= new SuperObject[10]; //set the number of objects 10;
     //part 7 Object Placement part ends
 
+// Game State
+    public int gameState;
+    public final int playState=1;
+    public final int pauseState=2;
 
     //Now i am creating constructor
     public GamePanel(){
@@ -83,6 +89,9 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public void setupGame(){
     aSetter.setObject();
     playMusic(0); // 0 -> because we want to play first index of the music
+    //stating the game
+    gameState=playState;
+
     }
     //part 7 Object Placement part ends
 
@@ -131,12 +140,16 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
 
     //the update function for run thread
     public void update(){
-        //we are going to change player position in this function
+        if(gameState==playState) {
+            //we are going to change player position in this function
 
-        player.update();
+            player.update();
 //        System.out.println(playerX);
 //        System.out.println(playerY);
-
+        }
+        if(gameState==pauseState){
+            //we will add later
+        }
     }
     //the draw function for run thread
     public void paintComponent(Graphics g){ //this is not custom method it is actually a built in method in java to draw things in java
