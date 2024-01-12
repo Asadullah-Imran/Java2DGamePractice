@@ -16,6 +16,7 @@
     - [Part 9 Sound](#part-9---sound)
     - [Part 10 first game done with tresure hunt](#part-10---the-first-game-done-treasure-hunting)
     - [Part 11 improving render performance](#part-11---improving-renderperformance)
+    - [Part 11 Update Tile and map](#part-12---update-tiles-and-map)
       - 
   
 
@@ -236,8 +237,31 @@ like that you can create a scaled Image which will save the height and width.
 6. tile scaling is done ! now we will scale Player image . as like as tile but a little bit different because we are not use array in player char but tiles.  
 7. now the last part of Object scaling.now open superObject and instantiate our UtilityTool there as its the parent class; 
 
-### Part 12 - Object Interaction
-### Part 13 - Object Interaction
+### Part 12 - update tiles and map;
+here we update our tiles and map 
+#### Now our Second part will begun for the game
+here we will have
+- Game State
+- NPC and Dialog system
+- Player Status (Life,Level,Aattack, Defense , Exp etc.)
+- Monsters (Simple AI) and Battle System (Hit detection)
+- Inventory
+- Merchant NPC (Buy and sell items)
+- Tile Screen , Game Over Screen
+- Environment Interaction (Cutting trees with axe)
+- Item Drop
+- In-game Menu
+- Advance UI
+- New Area (map transition)
+- Events(Boss fight etc)
+- save/load
+- Ending Screen
+
+### Part 13 -  Game State
+In this part we will 
+- set Game State
+- Implement Pause Screen 
+- Do some house-keeping 
 ### Part 14 - Object Interaction
 ### Part 15 - Object Interaction
 ### Part 16 - Object Interaction
