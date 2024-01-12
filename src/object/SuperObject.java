@@ -1,6 +1,7 @@
 package object;
 
 import Main.GamePanel;
+import Main.UtilityTool;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,6 +18,10 @@ public class SuperObject {
     public int solidAreaDefaultX=0;
     public int solidAreaDefaultY=0;
     //part 8 Object Interaction part ends
+    //part 11 scaling object size start
+    UtilityTool uTool=new UtilityTool();
+    //part 11 scaling object size end
+
 
     public void draw(Graphics2D g2, GamePanel gp){
         int screenX= worldX-gp.player.worldX + gp.player.screenX;
@@ -30,7 +35,7 @@ public class SuperObject {
                 worldY- gp.tileSize<gp.player.worldY+gp.player.screenY
         ){
 
-            g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
+            g2.drawImage(image,screenX,screenY,null);
         }
     }
 

@@ -2,11 +2,13 @@ package entity;
 
 import Main.GamePanel;
 import Main.KeyHandler;
+import Main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.Buffer;
 
 public class Player extends Entity{
      GamePanel gp;
@@ -47,19 +49,33 @@ public class Player extends Entity{
         direction="down";
     }
     public void getPlayerImage(){
-        try{
-            up1= ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
-            up2= ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
-            down1= ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
-            down2= ImageIO.read(getClass().getResourceAsStream("/player/boy_down_2.png"));
-            left1= ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
-            left2= ImageIO.read(getClass().getResourceAsStream("/player/boy_left_2.png"));
-            right1= ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
-            right2= ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
+
+            up1=setup( "boy_up_1");
+            up2= setup("boy_up_2");
+            down1= setup("boy_down_1");
+            down2= setup("boy_down_2");
+            left1=setup ("boy_left_1");
+            left2= setup("boy_left_2");
+            right1= setup("boy_right_1");
+            right2= setup("boy_right_2");
+    }
+    //Part 11 starts
+    //Scaling Player Image
+    //as it has no array like tile class so it will be different than tile scaling
+    public BufferedImage setup(String imageName){
+        UtilityTool uTool=new UtilityTool();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName+".png"));
+            image= uTool.scaleImage(image,gp.tileSize,gp.tileSize);
         }catch (IOException e){
             e.printStackTrace();
         }
+        return image;
     }
+    //Part 11 ends
+
+
     public void update(){
         //we are going to change player position in this function
         if(keyHandler.upPressed==true||keyHandler.downPressed==true||keyHandler.leftPressed==true||keyHandler.rightPressed==true) {
@@ -204,6 +220,6 @@ public class Player extends Entity{
                 }
                 break;
         }
-        g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null); //drawImage();  draw image in canvas
+        g2.drawImage(image,screenX,screenY,null); //drawImage();  draw image in canvas
     }
 }

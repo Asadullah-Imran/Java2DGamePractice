@@ -13,6 +13,9 @@
     - [Part 6 Collision Detection](#part-6---collision-detection)
     - [Part 7 Object Placement](#part-7---object-placement) 
     - [Part 8 Object Interaction](#part-8---object-interaction)
+    - [Part 9 Sound](#part-9---sound)
+    - [Part 10 first game done with tresure hunt](#part-10---the-first-game-done-treasure-hunting)
+    - [Part 11 improving render performance](#part-11---improving-renderperformance)
       - 
   
 
@@ -210,7 +213,29 @@ Now we are creating a UI design for our game
 1. create a `UI` class in main package and add necessary code
 2. intantiate it in `GamePanel` class.
 
-### Part 11 - Object Interaction
+### Part 11 - Improving RenderPerformance
+As after the 10 part we will gonna handle a bit more heavy stuff so we need to optimize our code a little bit
+1. First we are gonna check how long it take to draw these all objects.
+2. Try not to instantiate object in gameloop.
+3. `g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null); ` in here after the x and y postion we used to add width and height to scale the image  in every frame . so if we scale it beforehand then it will be very time-saving process.
+like that 
+```java
+public class TileManager{
+    tile[0]= new Tile();
+    tile[0].image= ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+
+    BufferedImage scaledImage = new BufferedImage(gp.tileSize,gp.tileSize,tile[0].image.getType());
+    Graphics2D g2= scaledImage.createGraphics();
+    g2.drawImage(tile[0].image,0,0,gp.tileSize,gp.tileSize,null);
+    tile[0].image=scaledImage;
+}
+```
+like that you can create a scaled Image which will save the height and width.
+4. now we will not obviouly scale the image like that . but we will create a class 
+5. In TileManager class we created a function named `setup` which will set the image for tiles. 
+6. tile scaling is done ! now we will scale Player image . as like as tile but a little bit different because we are not use array in player char but tiles.  
+7. now the last part of Object scaling.now open superObject and instantiate our UtilityTool there as its the parent class; 
+
 ### Part 12 - Object Interaction
 ### Part 13 - Object Interaction
 ### Part 14 - Object Interaction
