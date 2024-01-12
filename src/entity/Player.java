@@ -134,6 +134,7 @@ public class Player extends Entity{
                     gp.playSE(1);
                     hasKey++;
                     gp.obj[i] =null;
+                    gp.ui.showMessage("You got a key!");
                     System.out.println("Key:"+ hasKey);
                     break;
                 case "Door":
@@ -141,6 +142,9 @@ public class Player extends Entity{
                         gp.playSE(3);
                         gp.obj[i] =null;
                         hasKey--;
+                        gp.ui.showMessage("You Opened the door");
+                    }else{
+                        gp.ui.showMessage("You don't have a key!");
                     }
                     System.out.println("Key:"+ hasKey);
                     break;
@@ -149,6 +153,13 @@ public class Player extends Entity{
                     speed+=4;
                     gp.obj[i] =null;
                     System.out.println("Boots Found");
+                    break;
+                case "Chest":
+                    gp.ui.gameFinished=true;
+                    gp.stopMusic();
+                    gp.playSE(4);
+                    gp.obj[i] =null;
+                    System.out.println("Chest Found");
                     break;
 
             }

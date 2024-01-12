@@ -203,8 +203,13 @@ class Player{
 3. Now intantiate the `Sound` class in `GampePanel` class
     - create methods of `playMusic` `stopMusic` and `playSE`
     - now call the `playMusic` method in `setupGame` method. 
+4. and also added Soundeffects in Player class when player is hitting key or some other object. 
 
-### Part 10 - Object Interaction
+### Part 10 - The First Game Done (Treasure hunting)
+Now we are creating a UI design for our game
+1. create a `UI` class in main package and add necessary code
+2. intantiate it in `GamePanel` class.
+
 ### Part 11 - Object Interaction
 ### Part 12 - Object Interaction
 ### Part 13 - Object Interaction

@@ -39,7 +39,8 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     KeyHandler keyHandler= new KeyHandler();
 
     //part 9 Sound part starts
-    Sound sound = new Sound();
+    Sound music = new Sound();
+    Sound se = new Sound();
     //part 9 Sound part ends
 
 
@@ -60,6 +61,10 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     //part 7 Object Placement part starts
     public AssetSetter aSetter = new AssetSetter(this);
             //Entity and Object
+    //part 10 UI part starts
+    public UI ui = new UI(this);
+    //part 10 UI part ends
+    //
     public Player player= new Player(this,keyHandler);
     public SuperObject obj[]= new SuperObject[10]; //set the number of objects 10;
     //part 7 Object Placement part ends
@@ -148,6 +153,8 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         }
        //Drawing the Player
         player.draw(g2);
+        //UI
+        ui.draw(g2);
         g2.dispose();
         //dispose() => Dispose of this graphics context and release any system resources that it is using
 
@@ -156,16 +163,16 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     // part 9 sound part start
     // now creating a method for playing music
     public void playMusic(int i){
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
     public void stopMusic(){
-        sound.stop();
+        music.stop();
     }
     public void playSE(int i){//play sound Effects
-        sound.setFile(i);
-        sound.play();
+        se.setFile(i);
+        se.play();
     }
     // part 9 sound part ends
 }
