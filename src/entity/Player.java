@@ -136,7 +136,7 @@ public class Player extends Entity{
 
     public void interactNPC(int i){
         if(i!=999){
-            System.out.println("npm hitting");
+            gp.gameState=gp.dialogueState;
         }
     }
 

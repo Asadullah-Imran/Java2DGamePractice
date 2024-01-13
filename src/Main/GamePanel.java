@@ -75,10 +75,12 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
 
     //part 7 Object Placement part ends
 
-// Game State
+    // GAME STATE
     public int gameState;
     public final int playState=1;
     public final int pauseState=2;
+    public final int dialogueState=3;
+
 
     //Now i am creating constructor
     public GamePanel(){
