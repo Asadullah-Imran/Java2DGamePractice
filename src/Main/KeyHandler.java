@@ -5,6 +5,12 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener { //KeyListenr=> this listener interface for recieving keyboard events (Keystrokes);
     public boolean upPressed,downPressed,leftPressed,rightPressed;
+    GamePanel gp;
+
+    //creating Constructor
+    public KeyHandler (GamePanel gp){
+        this.gp = gp;
+    }
     @Override
     public void keyTyped(KeyEvent e) {
         //we will not do anything in keyType method  because we do not need to handleany key type listener for our application
@@ -24,6 +30,13 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
         }
         if(code==KeyEvent.VK_D){ //VK_W means if user press D then
             rightPressed=true;
+        }
+        if(code==KeyEvent.VK_P){ //VK_W means if user press D then
+            if(gp.gameState==gp.playState){
+                gp.gameState=gp.pauseState;
+            } else if (gp.gameState==gp.pauseState) {
+                gp.gameState=gp.playState;
+            }
         }
     }
 

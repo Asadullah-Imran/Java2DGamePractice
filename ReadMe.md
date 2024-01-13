@@ -16,7 +16,7 @@
     - [Part 9 Sound](#part-9---sound)
     - [Part 10 first game done with tresure hunt](#part-10---the-first-game-done-treasure-hunting)
     - [Part 11 improving render performance](#part-11---improving-renderperformance)
-    - [Part 11 Update Tile and map](#part-12---update-tiles-and-map)
+    - [Part 12 Update Tile and map](#part-12---update-tiles-and-map)
       - 
   
 
@@ -262,6 +262,21 @@ In this part we will
 - set Game State
 - Implement Pause Screen 
 - Do some house-keeping 
+
+1. in `GamePanel` we created Gamestate variable and implent it on update method
+2. now in `KeyHandler` we will create a shortcut for pausing the game; but first we need to create a constructor and recieve gamePanel and add a code for pressing `P` key.
+```java
+    class KeyHandler{
+    if(code==KeyEvent.VK_P){ //VK_W means if user press D then
+        if(gp.gameState==gp.playState){
+            gp.gameState=gp.pauseState;
+        } else if (gp.gameState==gp.pauseState) {
+            gp.gameState=gp.playState;
+        }
+    }
+}
+```
+3. Now in `UI` class 
 ### Part 14 - Object Interaction
 ### Part 15 - Object Interaction
 ### Part 16 - Object Interaction
