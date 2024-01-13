@@ -166,7 +166,7 @@ public class Player extends Entity{
                     break;
                 case "Boots":
                     gp.playSE(2);
-                    speed+=4;
+                    speed+=1;
                     gp.obj[i] =null;
                     System.out.println("Boots Found");
                     break;
