@@ -88,7 +88,7 @@ public class CollisionChecker {
                         if(gp.obj[i].collision==true){
                             entity.collisionOn=true;
                         }
-                        //check this is a player or not (it could be a monster or other NPC)
+                        //check this is a player or not (it could be a monster or other npc)
                         if(player==true){
                             index=i;
                         }
@@ -104,7 +104,7 @@ public class CollisionChecker {
                         if(gp.obj[i].collision==true){
                             entity.collisionOn=true;
                         }
-                        //check this is a player or not (it could be a monster or other NPC)
+                        //check this is a player or not (it could be a monster or other npc)
                         if(player==true){
                             index=i;
                         }
@@ -118,7 +118,7 @@ public class CollisionChecker {
                         if(gp.obj[i].collision==true){
                             entity.collisionOn=true;
                         }
-                        //check this is a player or not (it could be a monster or other NPC)
+                        //check this is a player or not (it could be a monster or other npc)
                         if(player==true){
                             index=i;
                         }
@@ -132,7 +132,7 @@ public class CollisionChecker {
                         if(gp.obj[i].collision==true){
                             entity.collisionOn=true;
                         }
-                        //check this is a player or not (it could be a monster or other NPC)
+                        //check this is a player or not (it could be a monster or other npc)
                         if(player==true){
                             index=i;
                         }

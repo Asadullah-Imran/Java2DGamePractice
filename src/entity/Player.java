@@ -16,7 +16,7 @@ public class Player extends Entity{
     public final int screenX;
     public final int screenY;
     //part 8 Object Interaction part starts
-    public  int hasKey=0;
+//    public  int hasKey=0;
     //part 8 Object Interaction part ends
 
     public Player(GamePanel gp, KeyHandler keyHandler){
@@ -144,41 +144,7 @@ public class Player extends Entity{
         //if index is 999 that means it didn't touch any objects
         // if index is not 999 that means it touched any objects'
         if(i!=999){
-            String objectName = gp.obj[i].name;
-            switch(objectName){
-                case "Key":
-                    gp.playSE(1);
-                    hasKey++;
-                    gp.obj[i] =null;
-                    gp.ui.showMessage("You got a key!");
-                    System.out.println("Key:"+ hasKey);
-                    break;
-                case "Door":
-                    if(hasKey>0){
-                        gp.playSE(3);
-                        gp.obj[i] =null;
-                        hasKey--;
-                        gp.ui.showMessage("You Opened the door");
-                    }else{
-                        gp.ui.showMessage("You don't have a key!");
-                    }
-                    System.out.println("Key:"+ hasKey);
-                    break;
-                case "Boots":
-                    gp.playSE(2);
-                    speed+=1;
-                    gp.obj[i] =null;
-                    System.out.println("Boots Found");
-                    break;
-                case "Chest":
-                    gp.ui.gameFinished=true;
-                    gp.stopMusic();
-                    gp.playSE(4);
-                    gp.obj[i] =null;
-                    System.out.println("Chest Found");
-                    break;
 
-            }
         }
     }
     //part 8 Object Interaction part ends

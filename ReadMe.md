@@ -276,8 +276,16 @@ In this part we will
     }
 }
 ```
-3. Now in `UI` class 
-### Part 14 - Object Interaction
+3. Now in `UI` class we implement pause state UI and remove others.
+
+### Part 14 - NPC creation
+Now we will create NPC Character 
+1. First in `res` folder we will create a new Folder named `NPC` and move NPC image 
+2. Now we will do some HouseKeeping before we do ready our NPC character
+    - In `Entity` class we will create a Constructer which recieve GamePanel as parameter
+    - 
+
+
 ### Part 15 - Object Interaction
 ### Part 16 - Object Interaction
 ### Part 17 - Object Interaction
