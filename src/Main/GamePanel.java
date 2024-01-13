@@ -1,5 +1,6 @@
 package Main;
 
+import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -69,6 +70,9 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     //
     public Player player= new Player(this,keyHandler);
     public SuperObject obj[]= new SuperObject[10]; //set the number of objects 10;
+
+    public Entity npc[]= new Entity[10]; //set the number of 10
+
     //part 7 Object Placement part ends
 
 // Game State
@@ -88,6 +92,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     //part 7 Object Placement part starts
     public void setupGame(){
     aSetter.setObject();
+    aSetter.setNPC();
     playMusic(0); // 0 -> because we want to play first index of the music
     //stating the game
     gameState=playState;
@@ -142,8 +147,16 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public void update(){
         if(gameState==playState) {
             //we are going to change player position in this function
-
+            //Player
             player.update();
+
+            //NPC
+            for(int i=0; i<npc.length; i++){
+                if(npc[i] !=null){
+                    npc[i].update();
+                }
+            }
+
 //        System.out.println(playerX);
 //        System.out.println(playerY);
         }
@@ -162,6 +175,12 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         for(int i=0; i<obj.length;i++){
             if(obj[i]!=null){
                 obj[i].draw(g2,this);
+            }
+        }
+        //Drawing NPC
+        for(int i=0; i<npc.length;i++){
+            if(npc[i]!=null){
+                npc[i].draw(g2);
             }
         }
        //Drawing the Player

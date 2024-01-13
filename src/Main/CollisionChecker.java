@@ -151,5 +151,130 @@ public class CollisionChecker {
         return index;
     }
     //part 8 Object Interaction part ends
+    //
+
+    // This method is for check NPC or Monster Collision
+    //this is identical of checkObject method
+    public int checkEntity(Entity entity,Entity[] target) {
+        int index =999;
+
+        for(int i=0; i<target.length;i++){
+            if(target[i]!= null){
+                //Get entity solid Area Position
+                entity.solidArea.x=entity.worldX + entity.solidArea.x;
+                entity.solidArea.y=entity.worldY + entity.solidArea.y;
+                //Get the object's solid Area position
+                target[i].solidArea.x=target[i].worldX + target[i].solidArea.x;
+                target[i].solidArea.y=target[i].worldY + target[i].solidArea.y;
+
+                switch (entity.direction){
+                    case "up":
+                        entity.solidArea.y-=entity.speed;
+                        //rectangle class has a method named intersects to check two rectangeles are overlapperd or not
+                        if(entity.solidArea.intersects(target[i].solidArea)){
+                            System.out.println("up collision");
+                                entity.collisionOn=true;
+                                index=i;
+
+                        }
+
+
+                        break;
+                    case "down":
+                        entity.solidArea.y+=entity.speed;
+                        if(entity.solidArea.intersects(target[i].solidArea)){
+                            System.out.println("down collision");
+                            //check the object is solid or not
+                            entity.collisionOn=true;
+                            index=i;
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x-=entity.speed;
+                        if(entity.solidArea.intersects(target[i].solidArea)){
+                            System.out.println("left collision");
+                            entity.collisionOn=true;
+                            index=i;
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.x+=entity.speed;
+                        if(entity.solidArea.intersects(target[i].solidArea)){
+                            System.out.println("right collision");
+                            //check the object is solid or not
+                            entity.collisionOn=true;
+                            index=i;
+                        }
+                        break;
+                }
+                // reset the value
+                entity.solidArea.x= entity.solidAreaDefaultX;
+                entity.solidArea.y= entity.solidAreaDefaultY;
+
+                target[i].solidArea.x=target[i].solidAreaDefaultX;
+                target[i].solidArea.y=target[i].solidAreaDefaultY ;
+            }
+        }
+
+        return index;
+    }
+
+    public void checkPlayer(Entity entity){
+
+                //Get entity solid Area Position
+                entity.solidArea.x=entity.worldX + entity.solidArea.x;
+                entity.solidArea.y=entity.worldY + entity.solidArea.y;
+                //Get the object's solid Area position
+                gp.player.solidArea.x=gp.player.worldX + gp.player.solidArea.x;
+                gp.player.solidArea.y=gp.player.worldY + gp.player.solidArea.y;
+
+                switch (entity.direction){
+                    case "up":
+                        entity.solidArea.y-=entity.speed;
+                        //rectangle class has a method named intersects to check two rectangeles are overlapperd or not
+                        if(entity.solidArea.intersects(gp.player.solidArea)){
+                            System.out.println("up collision");
+                            entity.collisionOn=true;
+
+                        }
+
+
+                        break;
+                    case "down":
+                        entity.solidArea.y+=entity.speed;
+                        if(entity.solidArea.intersects(gp.player.solidArea)){
+                            System.out.println("down collision");
+                            //check the object is solid or not
+                            entity.collisionOn=true;
+
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x-=entity.speed;
+                        if(entity.solidArea.intersects(gp.player.solidArea)){
+                            System.out.println("left collision");
+                            entity.collisionOn=true;
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.x+=entity.speed;
+                        if(entity.solidArea.intersects(gp.player.solidArea)){
+                            System.out.println("right collision");
+                            //check the object is solid or not
+                            entity.collisionOn=true;
+
+                        }
+                        break;
+                }
+                // reset the value
+                entity.solidArea.x= entity.solidAreaDefaultX;
+                entity.solidArea.y= entity.solidAreaDefaultY;
+
+                gp.player.solidArea.x=gp.player.solidAreaDefaultX;
+                gp.player.solidArea.y=gp.player.solidAreaDefaultY ;
+
+
+    }
+
 
 }

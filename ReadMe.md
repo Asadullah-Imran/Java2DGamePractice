@@ -283,10 +283,15 @@ Now we will create NPC Character
 1. First in `res` folder we will create a new Folder named `NPC` and move NPC image 
 2. Now we will do some HouseKeeping before we do ready our NPC character
     - In `Entity` class we will create a Constructer which recieve GamePanel as parameter
-    - 
+    - Change a little bit in Player class of its constructor.. do super call and add gp in super.
+3. in `Entity` package we will create a class named `NPC_OldMan` and necessary code
+4. now in `GamePanel` we will create an object array of entity and in `object setter` we will create array and initialize our `npc` character. and also we create `draw` method in `entity` class and use this draw method in `gamepanel` `panint` method
+5. now we will create two method in `Entity` class named `setAction` and `update` to move our character 
+6. 
 
 
-### Part 15 - Object Interaction
+### Part 15 - NPC Dialouge
+
 ### Part 16 - Object Interaction
 ### Part 17 - Object Interaction
 ### Part 18 - Object Interaction

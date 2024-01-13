@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.nio.Buffer;
 
 public class Player extends Entity{
-     GamePanel gp;
     KeyHandler keyHandler;
     public final int screenX;
     public final int screenY;
@@ -20,13 +19,13 @@ public class Player extends Entity{
     //part 8 Object Interaction part ends
 
     public Player(GamePanel gp, KeyHandler keyHandler){
-        this.gp=gp;
+        super(gp);
         this.keyHandler=keyHandler;
         screenY=gp.screenHeight/2-(gp.tileSize/2);
         screenX=gp.screenWidth/2-(gp.tileSize/2);
 
         //part 6 collision part starts
-        solidArea= new Rectangle();
+        solidArea= new Rectangle(); //we can skip this session. (as we already make it in Entity class)
         solidArea.x=8;
         solidArea.y=16;
 
@@ -50,31 +49,15 @@ public class Player extends Entity{
     }
     public void getPlayerImage(){
 
-            up1=setup( "boy_up_1");
-            up2= setup("boy_up_2");
-            down1= setup("boy_down_1");
-            down2= setup("boy_down_2");
-            left1=setup ("boy_left_1");
-            left2= setup("boy_left_2");
-            right1= setup("boy_right_1");
-            right2= setup("boy_right_2");
+            up1=setup( "/player/boy_up_1.png");
+            up2= setup("/player/boy_up_2.png");
+            down1= setup("/player/boy_down_1.png");
+            down2= setup("/player/boy_down_2.png");
+            left1=setup ("/player/boy_left_1.png");
+            left2= setup("/player/boy_left_2.png");
+            right1= setup("/player/boy_right_1.png");
+            right2= setup("/player/boy_right_2.png");
     }
-    //Part 11 starts
-    //Scaling Player Image
-    //as it has no array like tile class so it will be different than tile scaling
-    public BufferedImage setup(String imageName){
-        UtilityTool uTool=new UtilityTool();
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName+".png"));
-            image= uTool.scaleImage(image,gp.tileSize,gp.tileSize);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return image;
-    }
-    //Part 11 ends
-
 
     public void update(){
         //we are going to change player position in this function
@@ -105,6 +88,9 @@ public class Player extends Entity{
 
             //part 8 Object Interaction part ends
 
+            //CHeck NPC collision
+            int npcIndex=gp.cChecker.checkEntity(this,gp.npc);
+            interactNPC(npcIndex);
 
 
             //if collisionOn is false then player can be able to move
@@ -147,6 +133,14 @@ public class Player extends Entity{
 
         }
     }
+
+    public void interactNPC(int i){
+        if(i!=999){
+            System.out.println("npm hitting");
+        }
+    }
+
+
     //part 8 Object Interaction part ends
     public  void draw( Graphics2D g2){
 //        g2.setColor(Color.WHITE);
