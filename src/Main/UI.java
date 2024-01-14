@@ -14,7 +14,7 @@ public class UI {
     public String message="";
     int messageCounter=0; //to set timer so that the message will be disappear after some moment
     public boolean gameFinished=false; // if game is finished then the message will be shown
-    //setting for timer
+    public String currentDialogue=""; //for setting the dialogue
 
     public UI(GamePanel gp){
         this.gp = gp;
@@ -66,6 +66,16 @@ public class UI {
         int width=gp.screenWidth-(gp.tileSize*4);
         int height=gp.tileSize*4;
         drawSubWindow(x, y, width, height);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,28F));
+        x+= gp.tileSize;
+        y+= gp.tileSize;
+
+        //to create new line
+        for(String line: currentDialogue.split("\n")){
+        g2.drawString(line,x,y);
+        y+=40;
+        }
+
     }
     public void drawSubWindow(int x, int y, int width, int height){
         Color c= new Color(0,0,0,210);
