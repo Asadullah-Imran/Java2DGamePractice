@@ -77,6 +77,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
 
     // GAME STATE
     public int gameState;
+    public final int titleState=0;
     public final int playState=1;
     public final int pauseState=2;
     public final int dialogueState=3;
@@ -95,9 +96,9 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public void setupGame(){
     aSetter.setObject();
     aSetter.setNPC();
-    playMusic(0); // 0 -> because we want to play first index of the music
+    //playMusic(0); // 0 -> because we want to play first index of the music
     //stating the game
-    gameState=playState;
+    gameState=titleState;
 
     }
     //part 7 Object Placement part ends
@@ -171,26 +172,37 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         //this graphics are like my pencil
         super.paintComponent(g);
         Graphics2D g2= (Graphics2D)g;
-        //Drawing the tile
-       tileM.draw(g2);
-       //Drawing the Objects
-        for(int i=0; i<obj.length;i++){
-            if(obj[i]!=null){
-                obj[i].draw(g2,this);
+
+        //TITLE SCREEN
+        if(gameState==titleState){
+            //DOING our TILE Screen
+            ui.draw(g2);
+        }else{
+            //Drawing the tile [For GAME SCREEN]
+            tileM.draw(g2);
+            //Drawing the Objects
+            for(int i=0; i<obj.length;i++){
+                if(obj[i]!=null){
+                    obj[i].draw(g2,this);
+                }
             }
-        }
-        //Drawing NPC
-        for(int i=0; i<npc.length;i++){
-            if(npc[i]!=null){
-                npc[i].draw(g2);
+            //Drawing NPC
+            for(int i=0; i<npc.length;i++){
+                if(npc[i]!=null){
+                    npc[i].draw(g2);
+                }
             }
+            //Drawing the Player
+            player.draw(g2);
+            //UI
+            ui.draw(g2);
+            g2.dispose();
+            //dispose() => Dispose of this graphics context and release any system resources that it is using
+
         }
-       //Drawing the Player
-        player.draw(g2);
-        //UI
-        ui.draw(g2);
-        g2.dispose();
-        //dispose() => Dispose of this graphics context and release any system resources that it is using
+
+
+
 
     }
 

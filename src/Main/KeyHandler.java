@@ -19,6 +19,35 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
     @Override
     public void keyPressed(KeyEvent e) {
     int code= e.getKeyCode(); //returns ascii value of key pressed
+
+        //TITLE STATE
+        if(gp.gameState== gp.titleState){
+            if(code==KeyEvent.VK_W){ //VK_W means if user press W then
+                gp.ui.commandNum--;
+                if(gp.ui.commandNum<0){
+                    gp.ui.commandNum=2;
+                }
+            }
+            if(code==KeyEvent.VK_S){ //VK_S means if user press S then
+
+                    gp.ui.commandNum++;
+                    if(gp.ui.commandNum>2){
+                        gp.ui.commandNum=0;
+                    }
+
+            }
+            if(code==KeyEvent.VK_ENTER){ //VK_ENTER means if user press ENTER then
+                if(gp.ui.commandNum==0){
+                    gp.gameState=gp.playState;
+                    gp.playMusic(0);
+                }if(gp.ui.commandNum==1){
+                    //ADD LATER for LOAD option
+                }if(gp.ui.commandNum==2){
+                    System.exit(0);
+                }
+            }
+        }
+
         //This is for PlayState
         if(gp.gameState== gp.playState){
             if(code==KeyEvent.VK_W){ //VK_W means if user press W then
