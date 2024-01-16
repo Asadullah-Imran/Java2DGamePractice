@@ -18,6 +18,7 @@ public class Player extends Entity{
 //    public  int hasKey=0;
     //part 8 Object Interaction part ends
 
+    //Constructor starts
     public Player(GamePanel gp, KeyHandler keyHandler){
         super(gp);
         this.keyHandler=keyHandler;
@@ -46,6 +47,10 @@ public class Player extends Entity{
         worldY= gp.tileSize*21;
         speed=4;
         direction="down";
+
+        //Player Status;
+        maxLife=6;
+        life=maxLife;
     }
     public void getPlayerImage(){
 

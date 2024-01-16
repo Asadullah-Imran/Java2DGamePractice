@@ -1,6 +1,8 @@
 package Main;
 
+import object.OBJ_Heart;
 import object.OBJ_Key;
+import object.SuperObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,6 +12,7 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font arial_40, arial_80B;
+    BufferedImage heartFull,heartHalf,heartBlack;
     public boolean messageOn=false;
     public String message="";
     int messageCounter=0; //to set timer so that the message will be disappear after some moment
@@ -25,6 +28,12 @@ public class UI {
         arial_80B = new Font("Arial",Font.BOLD,80);
  //       OBJ_Key key = new OBJ_Key(gp);
    //     keyImage =key.image;
+
+        //Create Heart Object
+        SuperObject heart= new OBJ_Heart(gp);
+        heartFull=heart.image;
+        heartHalf=heart.image2;
+        heartBlack=heart.image3;
     }
     public void showMessage(String text){
         message = text;
@@ -43,15 +52,47 @@ public class UI {
         //PLAY STATE
         if(gp.gameState == gp.playState){
             //Do PlayState stuff
+            //Drawing Heart for player life
+            drawPlayerLife();
         }
         //PAUSE STATE
         if(gp.gameState == gp.pauseState){
             //Do pauseState stuff
             drawPauseScreen();
+            drawPlayerLife();
         }
         //DIALOGUE STATE
         if(gp.gameState == gp.dialogueState){
+            drawPlayerLife();
             drawDialogueScreen();
+        }
+
+    }
+    public void drawPlayerLife(){
+        //gp.player.life=4;
+        int x= gp.tileSize/2;
+        int y=gp.tileSize/2;
+        int i=0;
+        //DRAW BLANK HEART
+        while(i<(gp.player.maxLife/2)){
+            g2.drawImage(heartBlack,x,y,null);
+            i++;
+            x+=gp.tileSize;
+        }
+        //RESET THE values
+         x= gp.tileSize/2;
+         y=gp.tileSize/2;
+         i=0;
+
+        //Draw Current LIFE
+        while(i<gp.player.life){
+            g2.drawImage(heartHalf,x,y,null);
+            i++;
+            if(i<gp.player.life){
+                g2.drawImage(heartFull,x,y,null);
+            }
+            i++;
+            x+=gp.tileSize;
         }
 
     }
