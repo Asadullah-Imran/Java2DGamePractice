@@ -97,6 +97,9 @@ public class Player extends Entity{
             int npcIndex=gp.cChecker.checkEntity(this,gp.npc);
             interactNPC(npcIndex);
 
+            //CHECK EVENT
+            gp.eHandler.checkEvent();
+            gp.keyHandler.enterPressed=false;
 
             //if collisionOn is false then player can be able to move
             if(collisionOn==false){
@@ -126,8 +129,8 @@ public class Player extends Entity{
             }
         }
         //checking the player position
-//        System.out.println("x: "+ worldX/gp.tileSize);
-//        System.out.println("y: "+ worldY/gp.tileSize);
+        System.out.println("x: "+ worldX/gp.tileSize);
+       System.out.println("y: "+ worldY/gp.tileSize);
 
     }
     //part 8 Object Interaction part starts
@@ -147,7 +150,7 @@ public class Player extends Entity{
             gp.npc[i].speak();
             }
         }
-        gp.keyHandler.enterPressed=false;
+
     }
 
 

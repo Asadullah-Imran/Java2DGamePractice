@@ -54,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public CollisionChecker cChecker= new CollisionChecker(this);
     //part 6 collision part ends
 
+    public EventHandler eHandler= new EventHandler(this);
 
 
     //Adding Player class
