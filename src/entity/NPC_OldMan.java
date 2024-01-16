@@ -13,6 +13,14 @@ public class NPC_OldMan extends Entity{
         super(gp);
         direction ="down";
         speed=2;
+        //set the collision part
+        solidArea.x=0;
+        solidArea.y=16;
+        solidArea.width=48;
+        solidArea.height=32;
+        solidAreaDefaultX=solidArea.x;
+        solidAreaDefaultY=solidArea.y;
+
         getNPCImage();
         setDialogue();
     }

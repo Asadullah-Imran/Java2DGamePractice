@@ -2,11 +2,13 @@ package Main;
 
 import entity.Entity;
 import entity.Player;
-import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable  { //so my Game panel is inherited of JPanel
     //Screen settings
@@ -70,9 +72,12 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     //part 10 UI part ends
     //
     public Player player= new Player(this,keyHandler);
-    public SuperObject obj[]= new SuperObject[10]; //set the number of objects 10;
+    public Entity obj[]= new Entity[10]; //set the number of objects 10;
 
     public Entity npc[]= new Entity[10]; //set the number of 10
+
+    //Now creating the arrayList
+    ArrayList<Entity> entityList = new ArrayList<>();
 
     //part 7 Object Placement part ends
 
@@ -181,20 +186,38 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         }else{
             //Drawing the tile [For GAME SCREEN]
             tileM.draw(g2);
-            //Drawing the Objects
-            for(int i=0; i<obj.length;i++){
-                if(obj[i]!=null){
-                    obj[i].draw(g2,this);
-                }
-            }
-            //Drawing NPC
-            for(int i=0; i<npc.length;i++){
+
+            //Entity Draw
+            //add player
+            entityList.add(player);
+            //add npc entity
+            for(int i=0; i<npc.length; i++){
                 if(npc[i]!=null){
-                    npc[i].draw(g2);
+                    entityList.add(npc[i]);
                 }
             }
-            //Drawing the Player
-            player.draw(g2);
+            //add object to list
+            for(int i=0; i<obj.length; i++){
+                if(obj[i]!=null){
+                    entityList.add(obj[i]);
+                }
+            }
+            //Sorting before draw to draw in perfect layer thinking z index
+            Collections.sort(entityList, new Comparator<Entity>() {
+                @Override
+                public int compare(Entity e1, Entity e2) {
+                    int result=Integer.compare(e1.worldY, e2.worldY);
+                    return result;
+                }
+            });
+            //Finally we will draw the entity]
+            for(int i=0;i<entityList.size();i++){
+                entityList.get(i).draw(g2);
+            }
+
+            //Empty the entity list because when this will render again the entity will added to the list again
+            entityList.clear();
+
             //UI
             ui.draw(g2);
             g2.dispose();
