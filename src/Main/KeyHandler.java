@@ -7,6 +7,9 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
     public boolean upPressed,downPressed,leftPressed,rightPressed,enterPressed;
     GamePanel gp;
 
+    boolean showDebugText=false;
+
+
     //creating Constructor
     public KeyHandler (GamePanel gp){
         this.gp = gp;
@@ -91,6 +94,22 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
             //gp.gameState=gp.playState;
             enterPressed=true;
         }
+
+        //DEBUG
+        if(code==KeyEvent.VK_T) { //VK_T means if user press T then the action will call.
+            if(showDebugText==false) {
+                showDebugText = true;
+            }else if(showDebugText==true) {
+                showDebugText = false;
+            }
+
+        }
+        if(code==KeyEvent.VK_R) { //VK_T means if user press T then the action will call.
+            gp.tileM.loadMap("/maps/worldV2.txt");
+        }
+
+
+
     }
     public void pauseState(int code){
         if(code==KeyEvent.VK_P){ //VK_P means if user press P then

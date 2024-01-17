@@ -193,6 +193,11 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         //this graphics are like my pencil
         super.paintComponent(g);
         Graphics2D g2= (Graphics2D)g;
+        //DEBUG
+        long drawStart=0;
+        if(keyHandler.showDebugText==true){
+            drawStart=System.nanoTime();
+        }
 
         //TITLE SCREEN
         if(gameState==titleState){
@@ -241,13 +246,34 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
 
             //UI
             ui.draw(g2);
-            g2.dispose();
-            //dispose() => Dispose of this graphics context and release any system resources that it is using
-
         }
 
 
+    //DEBUG
+        if(keyHandler.showDebugText==true){
+            long drawEnd = System.nanoTime();
+            long passed= drawEnd- drawStart;
+            g2.setFont(new Font("Arial",Font.PLAIN,20));
+            g2.setColor(Color.white);
+            int x=10;
+            int y=400;
+            int lineHeight=20;
+            g2.drawString("WorldX: "+ player.worldX,x,y);
+            y+=lineHeight;
+            g2.drawString("WorldY: "+ player.worldY,x,y);
+            y+=lineHeight;
+            g2.drawString("Col: "+ (player.worldX+ player.solidArea.x)/tileSize,x,y);
+            y+=lineHeight;
+            g2.drawString("row: "+ (player.worldY+ player.solidArea.y)/tileSize,x,y);
+            y+=lineHeight;
+            g2.drawString("Draw Time: "+ passed,x,y);
 
+
+
+            //System.out.println("DrawTime: "+ passed);
+        }
+        g2.dispose();
+        //dispose() => Dispose of this graphics context and release any system resources that it is using
 
     }
 
