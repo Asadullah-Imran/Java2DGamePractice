@@ -3,6 +3,8 @@ package entity;
 import Main.GamePanel;
 import Main.KeyHandler;
 import Main.UtilityTool;
+import object.OBJ_Shield_Wood;
+import object.OBJ_Sword_normal;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,6 +19,7 @@ public class Player extends Entity{
     //part 8 Object Interaction part starts
 //    public  int hasKey=0;
     //part 8 Object Interaction part ends
+    public boolean attackCanceled=false;
 
     //Constructor starts
     public Player(GamePanel gp, KeyHandler keyHandler){
@@ -56,8 +59,24 @@ public class Player extends Entity{
         direction="down";
 
         //Player Status;
+        level=1;
         maxLife=6;
         life=maxLife;
+        strength=1; //the more strength he has the more damage he gives
+        dexterity=1;// the more dexterity he has the less damage he receives
+        exp=0;
+        nextLevelExp=5;
+        coin=0;
+        currentWeapon=new OBJ_Sword_normal(gp);
+        currentShield= new OBJ_Shield_Wood(gp);
+        attack=getAttack(); //the total attack value is decided by the strength and weapon
+        defense=getDefense();// the total defense value is decided by the dexterity and shield
+    }
+    public int getAttack() {
+        return attack=strength*currentWeapon.attackValue;
+    }
+    public int getDefense() {
+        return defense=dexterity*currentShield.defenseValue;
     }
     public void getPlayerImage(){
 
@@ -126,7 +145,11 @@ public class Player extends Entity{
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
-            gp.keyHandler.enterPressed=false;
+
+
+
+
+
 
             //if collisionOn is false then player can be able to move
             if(collisionOn==false){
@@ -144,6 +167,13 @@ public class Player extends Entity{
 
             //part 6 collision part ends
 
+            if(keyHandler.enterPressed==true && attackCanceled==false){
+                gp.playSE(7);
+                attacking=true;
+                spriteCounter=0;
+            }
+            attackCanceled=false;
+            gp.keyHandler.enterPressed=false;
 
             spriteCounter++;
             if (spriteCounter > 10) {
@@ -223,17 +253,21 @@ public class Player extends Entity{
     public void interactNPC(int i){
         if(gp.keyHandler.enterPressed==true){
             if(i!=999){
+                attackCanceled=true;
                 gp.gameState=gp.dialogueState;
                 gp.npc[i].speak();
-            }else {
-                attacking=true;
             }
+//            else {
+//                gp.playSE(7);
+//                attacking=true;
+//            }
         }
     }
 
     public void contactMonster(int i){
         if(i!=999){
             if(invincible==false) {
+                gp.playSE(6);
                 life -= 1;
                 invincible=true;
             }
@@ -242,11 +276,13 @@ public class Player extends Entity{
     public void damageMonster(int i){
         if(i!=999){
             if(gp.monster[i].invincible==false) {
+                gp.playSE(5);
                 gp.monster[i].life -= 1;
                 gp.monster[i].invincible=true;
+                gp.monster[i].damageReaction();
 
                 if(gp.monster[i].life<=0){
-                    gp.monster[i]=null;
+                    gp.monster[i].dying=true;
                 }
             }
         }

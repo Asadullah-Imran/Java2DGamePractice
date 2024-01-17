@@ -56,4 +56,14 @@ GamePanel gp;
             actionLookCounter=0;
         }
     }
+    public void damageReaction(){
+        actionLookCounter=0;
+        direction=gp.player.direction;
+
+//        if(actionLookCounter<50){
+//            speed=4;
+//        }else{
+//            speed=1;
+//        }
+    }
 }

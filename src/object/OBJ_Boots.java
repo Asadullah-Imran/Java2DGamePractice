@@ -10,7 +10,7 @@ public class OBJ_Boots extends Entity {
     GamePanel gp;
     public OBJ_Boots(GamePanel gp){
         super(gp);
-        name="Boots";
+        name="Normal Sword";
         down1=setup("/objects/boots.png",gp.tileSize,gp.tileSize);
     }
 }
