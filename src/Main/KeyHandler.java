@@ -124,7 +124,31 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
     public void characterState(int code){
         if(code==KeyEvent.VK_C){ //VK_C means if user press C then
             gp.gameState=gp.playState;
+        }if(code==KeyEvent.VK_W){ //VK_W means if user press W then
+            if(gp.ui.slotRow!=0){
+            gp.ui.slotRow--;
+            gp.playSE(9);
+            }
         }
+        if(code==KeyEvent.VK_S){ //VK_S means if user press S then
+            if(gp.ui.slotRow!=3) {
+                gp.ui.slotRow++;
+                gp.playSE(9);
+            }
+        }
+        if(code==KeyEvent.VK_A){ //VK_A means if user press A then
+            if(gp.ui.slotCol!=0) {
+                gp.ui.slotCol--;
+                gp.playSE(9);
+            }
+        }
+        if(code==KeyEvent.VK_D){ //VK_D means if user press D then
+            if(gp.ui.slotCol!=4) {
+                gp.ui.slotCol++;
+                gp.playSE(9);
+            }
+        }
+
     }
 
 

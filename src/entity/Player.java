@@ -3,6 +3,7 @@ package entity;
 import Main.GamePanel;
 import Main.KeyHandler;
 import Main.UtilityTool;
+import object.OBJ_Key;
 import object.OBJ_Shield_Wood;
 import object.OBJ_Sword_normal;
 
@@ -11,6 +12,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.util.ArrayList;
 
 public class Player extends Entity{
     KeyHandler keyHandler;
@@ -20,6 +22,9 @@ public class Player extends Entity{
 //    public  int hasKey=0;
     //part 8 Object Interaction part ends
     public boolean attackCanceled=false;
+    //INVENTORY
+    public ArrayList<Entity> inventory= new ArrayList<>();
+    public final int maxInventorySize=20;
 
     //Constructor starts
     public Player(GamePanel gp, KeyHandler keyHandler){
@@ -51,6 +56,7 @@ public class Player extends Entity{
         setDefaultValues();
         getPlayerImage();
         getPlayerAttkackImage();
+        setItems();
     }
     public void setDefaultValues(){
         worldX= gp.tileSize*23;
@@ -71,6 +77,24 @@ public class Player extends Entity{
         currentShield= new OBJ_Shield_Wood(gp);
         attack=getAttack(); //the total attack value is decided by the strength and weapon
         defense=getDefense();// the total defense value is decided by the dexterity and shield
+    }
+    public void setItems(){
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Key(gp));
     }
     public int getAttack() {
         return attack=strength*currentWeapon.attackValue;

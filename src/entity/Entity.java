@@ -56,6 +56,7 @@ public class Entity {
     //ITEM ATTRIBUTES
     public int attackValue;
     public int defenseValue;
+    public String description="";
 
 
 
