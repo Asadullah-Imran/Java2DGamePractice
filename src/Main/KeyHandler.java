@@ -49,7 +49,7 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
         }
 
         //This is for PlayState
-        if(gp.gameState== gp.playState){
+        else if(gp.gameState== gp.playState){
             if(code==KeyEvent.VK_W){ //VK_W means if user press W then
                 upPressed=true;
             }

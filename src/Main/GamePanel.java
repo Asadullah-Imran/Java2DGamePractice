@@ -75,6 +75,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public Entity obj[]= new Entity[10]; //set the number of objects 10;
 
     public Entity npc[]= new Entity[10]; //set the number of 10
+    public Entity monster[]= new Entity[20];
 
     //Now creating the arrayList
     ArrayList<Entity> entityList = new ArrayList<>();
@@ -102,6 +103,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public void setupGame(){
     aSetter.setObject();
     aSetter.setNPC();
+    aSetter.setMonster();
     //playMusic(0); // 0 -> because we want to play first index of the music
     //stating the game
     gameState=titleState;
@@ -166,6 +168,13 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
                 }
             }
 
+            //Monster
+            for(int i=0; i<monster.length; i++){
+                if(monster[i] !=null){
+                    monster[i].update();
+                }
+            }
+
 //        System.out.println(playerX);
 //        System.out.println(playerY);
         }
@@ -200,6 +209,12 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
             for(int i=0; i<obj.length; i++){
                 if(obj[i]!=null){
                     entityList.add(obj[i]);
+                }
+            }
+            //add monster to list
+            for(int i=0; i<monster.length; i++){
+                if(monster[i]!=null){
+                    entityList.add(monster[i]);
                 }
             }
             //Sorting before draw to draw in perfect layer thinking z index

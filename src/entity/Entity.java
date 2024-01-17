@@ -17,6 +17,7 @@ public class Entity {
     public int speed;
 
     public BufferedImage up1,up2,down1, down2,left1,left2,right1,right2;
+    public BufferedImage attackUp1,attackUp2,attackDown1, attackDown2,attackLeft1,attackLeft2,attackRight1,attackRight2;
     public String direction="down";
     public int spriteCounter=0;
     public  int spriteNum=1;
@@ -24,6 +25,7 @@ public class Entity {
     //part 6 collision
     public Rectangle solidArea = new Rectangle(0,0,48,48);
     //part 8 Object Interaction part starts
+    public Rectangle attackArea = new Rectangle(0,0,0,0);
     public int solidAreaDefaultX,solidAreaDefaultY;
     //part 8 Object Interaction part  ends
     public boolean collisionOn= false;
@@ -35,6 +37,13 @@ public class Entity {
     //CHARACTER STATUS
     public int maxLife;
     public int life;
+
+    public boolean invincible=false;
+    public int invincibleCounter=0;
+    public int type; // 0 for player, 1 for npc, 2 for monster
+
+    //Attack
+    public boolean attacking= false;
 
     GamePanel gp;
     public Entity (GamePanel gp){
@@ -70,7 +79,17 @@ public class Entity {
         //CHeching part
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this,false); //its not player so its remain false
-        gp.cChecker.checkPlayer(this);
+        gp.cChecker.checkEntity(this,gp.npc);
+        gp.cChecker.checkEntity(this,gp.monster);
+        boolean contactPlayer= gp.cChecker.checkPlayer(this);
+
+        if(this.type ==2 && contactPlayer==true){
+            if(gp.player.invincible==false){
+                gp.player.life-=1;
+                gp.player.invincible=true;
+            }
+        }
+
 
         //if collisionOn is false then player can be able to move
         if(collisionOn==false){
@@ -99,18 +118,27 @@ public class Entity {
             spriteCounter = 0;
         }
 
+        if(invincible==true){
+            invincibleCounter++;
+            if(invincibleCounter>40){
+                invincible=false;
+                invincibleCounter=0;
+            }
+        }
+
+
     }
 
 
     //Scaling Player Image
     //as it has no array like tile class so it will be different than tile scaling
     //This function is doing for not doing set its height and width all the time when the game loop but just the position of x and y
-    public BufferedImage setup(String imagePath){
+    public BufferedImage setup(String imagePath,int width,int height){
         UtilityTool uTool=new UtilityTool();
         BufferedImage image = null;
         try {
             image = ImageIO.read(getClass().getResourceAsStream(imagePath));
-            image= uTool.scaleImage(image,gp.tileSize,gp.tileSize);
+            image= uTool.scaleImage(image,width,height);
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -164,7 +192,13 @@ public class Entity {
                     }
                     break;
             }
+            if(invincible==true){
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.4F));
+            }
             g2.drawImage(image,screenX,screenY,null);
+
+            //Reset opacity
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1F));
         }
     }
 
