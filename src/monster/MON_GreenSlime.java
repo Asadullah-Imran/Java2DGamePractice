@@ -15,6 +15,11 @@ GamePanel gp;
         type= 2;
         maxLife=4;
         life=maxLife;
+        attack=2;
+        defense=0;
+        exp=2;
+
+
         //set the SOLID AREA for  collision part
         solidArea.x=3;
         solidArea.y=18;
