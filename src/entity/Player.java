@@ -50,8 +50,8 @@ public class Player extends Entity{
 
 
         //PLAYER ATTACK Area
-        attackArea.width=36;
-        attackArea.height=36;
+//        attackArea.width=36;
+//        attackArea.height=36;
 
         setDefaultValues();
         getPlayerImage();
@@ -83,20 +83,9 @@ public class Player extends Entity{
         inventory.add(currentShield);
         inventory.add(new OBJ_Key(gp));
         inventory.add(new OBJ_Key(gp));
-        inventory.add(currentWeapon);
-        inventory.add(currentShield);
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(currentWeapon);
-        inventory.add(currentShield);
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(currentWeapon);
-        inventory.add(currentShield);
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(new OBJ_Key(gp));
     }
     public int getAttack() {
+        attackArea=currentWeapon.attackArea;
         return attack=strength*currentWeapon.attackValue;
     }
     public int getDefense() {
@@ -270,8 +259,16 @@ public class Player extends Entity{
         //if index is 999 that means it didn't touch any objects
         // if index is not 999 that means it touched any objects'
         if(i!=999){
-
-        }
+            String text;
+            if(inventory.size()!=maxInventorySize){
+                inventory.add(gp.obj[i]);
+                gp.playSE(1);
+                text="Got a "+ gp.obj[i].name+" !";
+            }else {
+                text="You can not carry any more!";
+            }
+            gp.ui.addMessage(text);
+            gp.obj[i]=null;        }
     }
 
     public void interactNPC(int i){
