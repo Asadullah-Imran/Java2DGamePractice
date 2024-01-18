@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public Entity monster[]= new Entity[20];
 
     //Now creating the arrayList
-    ArrayList<Entity>projectileList= new ArrayList<>();
+    public ArrayList<Entity>projectileList= new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
 
     //part 7 Object Placement part ends
@@ -181,6 +181,16 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
                     }
                 }
             }
+            //PROJECTILE
+            for(int i=0; i<projectileList.size(); i++){
+                if(projectileList.get(i) !=null){
+                    if(projectileList.get(i).alive==true){
+                        projectileList.get(i).update();
+                    } else if (projectileList.get(i).alive==false) {
+                        projectileList.remove(i);
+                    }
+                }
+            }
 
 //        System.out.println(playerX);
 //        System.out.println(playerY);
@@ -227,6 +237,12 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
             for(int i=0; i<monster.length; i++){
                 if(monster[i]!=null){
                     entityList.add(monster[i]);
+                }
+            }
+            //add projectile to list
+            for(int i=0; i<projectileList.size(); i++){
+                if(projectileList.get(i)!=null){
+                    entityList.add(projectileList.get(i));
                 }
             }
             //Sorting before draw to draw in perfect layer thinking z index

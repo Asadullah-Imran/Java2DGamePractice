@@ -81,6 +81,7 @@ public class Entity {
 
     int dyingCounter=0;
     int hpBarCounter=0;
+    public int shotAvailableCounter=0;
 
     GamePanel gp;
     public Entity (GamePanel gp){
