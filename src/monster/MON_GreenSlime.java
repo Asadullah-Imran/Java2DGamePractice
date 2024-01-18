@@ -12,7 +12,7 @@ GamePanel gp;
         this.gp=gp;
         name = "Green Slime";
         speed= 1;
-        type= 2;
+        type= type_monster;
         maxLife=4;
         life=maxLife;
         attack=2;

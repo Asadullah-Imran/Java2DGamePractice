@@ -41,7 +41,6 @@ public class Entity {
     public boolean invincible=false;
     public int invincibleCounter=0;
     //Character ATributes
-    public int type; // 0 for player, 1 for npc, 2 for monster
     public int level;
     public int strength;
     public int dexterity;
@@ -58,7 +57,15 @@ public class Entity {
     public int defenseValue;
     public String description="";
 
-
+    //Type of character;
+    public int type; // 0 for player, 1 for npc, 2 for monster
+    public final int type_player=0;
+    public final int type_npc=1;
+    public final int type_monster=2;
+    public final int type_sword=3;
+    public final int type_axe=4;
+    public final int type_shield=5;
+    public final int type_consumable=6;
 
     //Monster
     //Attack
@@ -96,6 +103,8 @@ public class Entity {
                 break;
         }
     }
+
+    public void use(Entity entity){}
     //create two method for running our NPC
     public void setAction(){}
 
@@ -110,7 +119,7 @@ public class Entity {
         gp.cChecker.checkEntity(this,gp.monster);
         boolean contactPlayer= gp.cChecker.checkPlayer(this);
 
-        if(this.type ==2 && contactPlayer==true){
+        if(this.type ==type_monster && contactPlayer==true){
             if(gp.player.invincible==false){
                 //recieve damage
                 gp.playSE(6);
@@ -228,7 +237,7 @@ public class Entity {
             }
 
             //MONSTER HEALTH BAR
-            if(type==2 && hpBarOn==true){ //type 2 for monster
+            if(type==type_monster && hpBarOn==true){ //type 2 for monster
                 double oneScale= (double)gp.tileSize/maxLife;
                 double hpPerValue=oneScale*life;
 
