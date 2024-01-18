@@ -38,6 +38,9 @@ public class Entity {
     public int maxLife;
     public int life;
 
+    public int maxMana;
+    public int mana;
+
     public boolean invincible=false;
     public int invincibleCounter=0;
     //Character ATributes
@@ -51,11 +54,13 @@ public class Entity {
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Projectile projectile;
 
     //ITEM ATTRIBUTES
     public int attackValue;
     public int defenseValue;
     public String description="";
+    public int useCost;
 
     //Type of character;
     public int type; // 0 for player, 1 for npc, 2 for monster

@@ -78,6 +78,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public Entity monster[]= new Entity[20];
 
     //Now creating the arrayList
+    ArrayList<Entity>projectileList= new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
 
     //part 7 Object Placement part ends
