@@ -2,6 +2,8 @@ package monster;
 
 import Main.GamePanel;
 import entity.Entity;
+import entity.Projectile;
+import object.OBJ_Rock;
 
 import java.util.Random;
 
@@ -18,7 +20,7 @@ GamePanel gp;
         attack=2;
         defense=0;
         exp=2;
-
+        projectile=new OBJ_Rock(gp);
 
         //set the SOLID AREA for  collision part
         solidArea.x=3;
@@ -59,6 +61,15 @@ GamePanel gp;
                 direction="right";
             }
             actionLookCounter=0;
+        }
+
+        //AI method for throwing rock
+        int i=new Random().nextInt(100)+1;
+        if(i>99 && projectile.alive==false&&shotAvailableCounter==30){
+            projectile.set(worldX,worldY,direction,true,this);
+            gp.projectileList.add(projectile);
+            shotAvailableCounter=0;
+
         }
     }
     public void damageReaction(){

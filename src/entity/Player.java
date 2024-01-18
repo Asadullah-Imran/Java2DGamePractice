@@ -3,10 +3,7 @@ package entity;
 import Main.GamePanel;
 import Main.KeyHandler;
 import Main.UtilityTool;
-import object.OBJ_Fireball;
-import object.OBJ_Key;
-import object.OBJ_Shield_Wood;
-import object.OBJ_Sword_normal;
+import object.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -69,6 +66,9 @@ public class Player extends Entity{
         level=1;
         maxLife=6;
         life=maxLife;
+        maxMana=4;
+        mana=maxMana;
+        //ammo=10;
         strength=1; //the more strength he has the more damage he gives
         dexterity=1;// the more dexterity he has the less damage he receives
         exp=0;
@@ -77,6 +77,8 @@ public class Player extends Entity{
         currentWeapon=new OBJ_Sword_normal(gp);
         currentShield= new OBJ_Shield_Wood(gp);
         projectile= new OBJ_Fireball(gp);
+        //this is for testing that you can use anything to throw .
+        //projectile= new OBJ_Rock(gp);
         attack=getAttack(); //the total attack value is decided by the strength and weapon
         defense=getDefense();// the total defense value is decided by the dexterity and shield
     }
@@ -214,10 +216,13 @@ public class Player extends Entity{
         }
         ///Outside of if statement
 
-        if(keyHandler.shotKeyPressed==true && projectile.alive==false && shotAvailableCounter==30) { //you can not shoot a projectile if the previous projectile is alive so you can shot only one at a time
+        if(keyHandler.shotKeyPressed==true && projectile.alive==false
+                && shotAvailableCounter==30 &&projectile.haveResource(this)==true) { //you can not shoot a projectile if the previous projectile is alive so you can shot only one at a time
             //Set Default Coordinates , direction and user
             projectile.set(worldX, worldY, direction,true,this);
 
+            //Subtract the MANA , Ammo, etc you want
+            projectile.subtractResource(this);
             //ADD IT TO THE arraylist
             gp.projectileList.add(projectile);
             gp.playSE(10);

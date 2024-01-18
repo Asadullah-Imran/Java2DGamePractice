@@ -91,8 +91,9 @@ public class EventHandler {
             gp.gameState=gameState;
             gp.player.attackCanceled=true;
             gp.playSE(2);
-            gp.ui.currentDialogue="You dring the water.\nYour life has been recovered";
+            gp.ui.currentDialogue="You dring the water.\nYour life and mana \nhave been recovered";
             gp.player.life= gp.player.maxLife;
+            gp.player.mana= gp.player.maxMana;
         }
     }
     public void teleport(int gameState){
