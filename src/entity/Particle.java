@@ -28,6 +28,9 @@ public class Particle extends Entity{
     }
     public void update(){
         life--;
+        if(life<maxLife/3){
+            yd++;
+        }
         worldX+=xd*speed;
         worldY+=yd*speed;
         if(life==0){
