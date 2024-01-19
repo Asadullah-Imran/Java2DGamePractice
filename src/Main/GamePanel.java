@@ -3,6 +3,7 @@ package Main;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
+import tile_interactive.InteractiveTile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,10 +73,12 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     //part 10 UI part ends
     //
     public Player player= new Player(this,keyHandler);
-    public Entity obj[]= new Entity[10]; //set the number of objects 10;
+    public Entity obj[]= new Entity[20]; //set the number of objects 10;
 
     public Entity npc[]= new Entity[10]; //set the number of 10
     public Entity monster[]= new Entity[20];
+
+    public InteractiveTile iTile[]= new InteractiveTile[50];
 
     //Now creating the arrayList
     public ArrayList<Entity>projectileList= new ArrayList<>();
@@ -107,6 +110,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     aSetter.setObject();
     aSetter.setNPC();
     aSetter.setMonster();
+    aSetter.setInteractiveTile();
     //playMusic(0); // 0 -> because we want to play first index of the music
     //stating the game
     gameState=titleState;
@@ -177,6 +181,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
                     if(monster[i].alive==true&&monster[i].dying==false){
                         monster[i].update();
                     } else if (monster[i].alive==false) {
+                        monster[i].checkDrop();
                         monster[i]=null;
                     }
                 }
@@ -191,6 +196,12 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
                     }
                 }
             }
+            //Interactive TILEs
+            for(int i=0;i<iTile.length;i++) {
+                if(iTile[i] != null){
+                    iTile[i].update();
+                }
+            }
 
 //        System.out.println(playerX);
 //        System.out.println(playerY);
@@ -200,7 +211,8 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         }
     }
     //the draw function for run thread
-    public void paintComponent(Graphics g){ //this is not custom method it is actually a built in method in java to draw things in java
+    public void paintComponent(Graphics g){
+        //this is not custom method it is actually a built in method in java to draw things in java
         //this graphics are like my pencil
         super.paintComponent(g);
         Graphics2D g2= (Graphics2D)g;
@@ -217,6 +229,12 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
         }else{
             //Drawing the tile [For GAME SCREEN]
             tileM.draw(g2);
+            //drawing the interactive tile
+            for(int i=0;i< iTile.length;i++){
+                if(iTile[i]!=null){
+                    iTile[i].draw(g2);
+                }
+            }
 
             //Entity Draw
             //add player

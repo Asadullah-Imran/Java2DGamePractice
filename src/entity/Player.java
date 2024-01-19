@@ -74,7 +74,8 @@ public class Player extends Entity{
         exp=0;
         nextLevelExp=5;
         coin=0;
-        currentWeapon=new OBJ_Sword_normal(gp);
+        //currentWeapon=new OBJ_Sword_normal(gp);
+        currentWeapon=new OBJ_Axe(gp);
         currentShield= new OBJ_Shield_Wood(gp);
         projectile= new OBJ_Fireball(gp);
         //this is for testing that you can use anything to throw .
@@ -172,6 +173,10 @@ public class Player extends Entity{
             int monsterIndex=gp.cChecker.checkEntity(this,gp.monster);
             contactMonster(monsterIndex);
 
+            //CHECK Interactive Tile COLLSIION
+            int iIileIndex=gp.cChecker.checkEntity(this,gp.iTile);
+
+
             //CHECK EVENT
             gp.eHandler.checkEvent();
 
@@ -239,6 +244,12 @@ public class Player extends Entity{
         if(shotAvailableCounter<30){
             shotAvailableCounter++;
         }
+        if(life>maxLife){
+            life=maxLife;
+        }
+        if(mana>maxMana){
+            mana=maxMana;
+        }
 
 
         //checking the player position
@@ -275,6 +286,10 @@ public class Player extends Entity{
             int monsterIndex=gp.cChecker.checkEntity(this,gp.monster);
             damageMonster(monsterIndex,attack);
 
+            //INTERACTIVE TILE
+            int iTileIndex=gp.cChecker.checkEntity(this,gp.iTile);
+            damageInteractiveTile(iTileIndex);
+
             //AFTER checking the attack restore the worldx and worldy and solidArea
             worldX=currentWorldX;
             worldY=currentWorldY;
@@ -292,16 +307,30 @@ public class Player extends Entity{
         //if index is 999 that means it didn't touch any objects
         // if index is not 999 that means it touched any objects'
         if(i!=999){
-            String text;
-            if(inventory.size()!=maxInventorySize){
-                inventory.add(gp.obj[i]);
-                gp.playSE(1);
-                text="Got a "+ gp.obj[i].name+" !";
-            }else {
-                text="You can not carry any more!";
+
+            //PICKUP ONLY ITEMS
+            if(gp.obj[i].type==type_pickupOnly){
+
+                gp.obj[i].use(this);
+                gp.obj[i]=null;
+
             }
-            gp.ui.addMessage(text);
-            gp.obj[i]=null;        }
+            //INVENTORY ITEMS
+            else{
+                String text;
+                if(inventory.size()!=maxInventorySize){
+                    inventory.add(gp.obj[i]);
+                    gp.playSE(1);
+                    text="Got a "+ gp.obj[i].name+" !";
+                }else {
+                    text="You can not carry any more!";
+                }
+                gp.ui.addMessage(text);
+                gp.obj[i]=null;
+
+            }
+
+        }
     }
 
     public void interactNPC(int i){
@@ -355,6 +384,20 @@ public class Player extends Entity{
             }
         }
 
+    }
+
+    public void damageInteractiveTile(int i){
+        if(i!=999 && gp.iTile[i].destructible==true&& gp.iTile[i].isCorrectItem(this)==true
+        && gp.iTile[i].invincible==false){
+
+            gp.iTile[i].playSE();
+            gp.iTile[i].life--;
+            gp.iTile[i].invincible=true; // other wise with one hit it will take life--; in multipletime so that tree cut off immediately with one shot
+            if(gp.iTile[i].life==0){
+                gp.iTile[i]=gp.iTile[i].getDestryoedForm();
+            }
+
+        }
     }
 
     public void checkLevelUp(){

@@ -62,6 +62,7 @@ public class Entity {
     public int defenseValue;
     public String description="";
     public int useCost;
+    public int value;
 
     //Type of character;
     public int type; // 0 for player, 1 for npc, 2 for monster
@@ -72,6 +73,7 @@ public class Entity {
     public final int type_axe=4;
     public final int type_shield=5;
     public final int type_consumable=6;
+    public final int type_pickupOnly=7;
 
     //Monster
     //Attack
@@ -112,6 +114,23 @@ public class Entity {
     }
 
     public void use(Entity entity){}
+
+
+    public void checkDrop(){
+
+    }
+    public void dropItem(Entity droppedItem){
+        for(int i=0;i<gp.obj.length;i++){
+            if(gp.obj[i]==null){
+                gp.obj[i]=droppedItem;
+                gp.obj[i].worldX=worldX; //dead monsters worldX
+                gp.obj[i].worldY=worldY; //dead monsters worldY
+                break;
+
+            }
+        }
+    }
+
     //create two method for running our NPC
     public void setAction(){}
 
@@ -119,11 +138,12 @@ public class Entity {
     public void update(){
         setAction();
         collisionOn=false;
-        //CHeching part
+        //CHeching part of collision so that entity got collision and can not move
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this,false); //its not player so its remain false
         gp.cChecker.checkEntity(this,gp.npc);
         gp.cChecker.checkEntity(this,gp.monster);
+        gp.cChecker.checkEntity(this,gp.iTile);
         boolean contactPlayer= gp.cChecker.checkPlayer(this);
 
         if(this.type ==type_monster && contactPlayer==true){
