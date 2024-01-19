@@ -33,6 +33,11 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public final int worldHeight=tileSize* maxScreenRow;
 
 
+
+
+    public boolean fullScreenOn = false;
+
+
         //FPS
     int FPS=60;
 
@@ -95,6 +100,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public final int pauseState=2;
     public final int dialogueState=3;
     public final int characterState=4;
+    public final int optionState=5;
 
 
 

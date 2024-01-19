@@ -42,6 +42,10 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
         else if (gp.gameState==gp.characterState) {
             characterState(code);
         }
+        //Option STATE
+        else if (gp.gameState==gp.optionState) {
+            optionsState(code);
+        }
     }
 
     //METHOD for ALL GAME STATE
@@ -95,8 +99,10 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
             enterPressed=true;
         }
         if(code==KeyEvent.VK_F){
-
             shotKeyPressed=true;
+        }
+        if(code==KeyEvent.VK_ESCAPE){
+            gp.gameState=gp.optionState;
         }
 
         //DEBUG
@@ -159,6 +165,60 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
     }
 
 
+    public void optionsState(int code){
+        if(code==KeyEvent.VK_ESCAPE){
+            gp.gameState=gp.playState;
+        }
+        if(code==KeyEvent.VK_ENTER){
+            enterPressed=true;
+        }
+        int maxCommandNum=0;
+        switch (gp.ui.subState){
+            case 0: maxCommandNum=5;break;
+            case 2: maxCommandNum=1;break;
+        }
+        if(code==KeyEvent.VK_W){
+            gp.ui.commandNum--;
+            gp.playSE(9);
+            if(gp.ui.commandNum<0){
+                gp.ui.commandNum=maxCommandNum;
+            }
+        }
+        if(code==KeyEvent.VK_S){
+
+            gp.ui.commandNum++;
+            gp.playSE(9);
+            if(gp.ui.commandNum>maxCommandNum){
+                gp.ui.commandNum=0;
+            }
+        }
+        if(code == KeyEvent.VK_A){
+            if(gp.ui.subState==0){
+                if(gp.ui.commandNum==1 &&gp.music.volumeScale>0){
+                    gp.music.volumeScale--;
+                    gp.playSE(9);
+                }
+                if(gp.ui.commandNum==2 &&gp.se.volumeScale>0){
+                    gp.se.volumeScale--;
+                    gp.playSE(9);
+                }
+            }
+        }
+        if(code == KeyEvent.VK_D){
+            if(gp.ui.subState==0){
+                if(gp.ui.commandNum==1 &&gp.music.volumeScale<5){
+                    gp.music.volumeScale++;
+                    gp.music.checkVolume();
+                    gp.playSE(9);
+                }
+                if(gp.ui.commandNum==2 &&gp.se.volumeScale<5){
+                    gp.se.volumeScale++;
+                    gp.playSE(9);
+                }
+            }
+        }
+
+    }
 
     @Override
     public void keyReleased(KeyEvent e) {
