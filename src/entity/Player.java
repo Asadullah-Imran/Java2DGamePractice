@@ -393,6 +393,8 @@ public class Player extends Entity{
             gp.iTile[i].playSE();
             gp.iTile[i].life--;
             gp.iTile[i].invincible=true; // other wise with one hit it will take life--; in multipletime so that tree cut off immediately with one shot
+            //CREATING PARTICLE
+            generateParticle(gp.iTile[i], gp.iTile[i]);
             if(gp.iTile[i].life==0){
                 gp.iTile[i]=gp.iTile[i].getDestryoedForm();
             }

@@ -131,6 +131,43 @@ public class Entity {
         }
     }
 
+    ///the method of particle
+    public Color getParticleColor(){ //this indicates the color of the particle
+        Color color= null;
+        return color;
+    }
+    public int getParticleSize(){// this indicates the size of the particle
+        int size=0;
+        return size;
+    }
+    public int getParticleSpeed(){ //this indicates the speed of the particle
+        int speed=0;
+        return speed;
+    }
+
+    public int getParticleMaxLife(){ //this indicates how long the particle will last
+        int maxLife=0;
+        return maxLife;
+    }
+
+    public void generateParticle(Entity generator, Entity target){
+        //Doing it later.
+        Color color=generator.getParticleColor();
+        int size=generator.getParticleSize();
+        int speed=generator.getParticleSpeed();
+        int maxLife=generator.getParticleMaxLife();
+
+        //creating particle
+        Particle p1= new Particle(gp,generator,color,size,speed,maxLife,-1,-1 );
+        Particle p2= new Particle(gp,generator,color,size,speed,maxLife,1,-1 );
+        Particle p3= new Particle(gp,generator,color,size,speed,maxLife,-1,1 );
+        Particle p4= new Particle(gp,generator,color,size,speed,maxLife,1,1 );
+        gp.particleList.add(p1);
+        gp.particleList.add(p2);
+        gp.particleList.add(p3);
+        gp.particleList.add(p4);
+    }
+
     //create two method for running our NPC
     public void setAction(){}
 
