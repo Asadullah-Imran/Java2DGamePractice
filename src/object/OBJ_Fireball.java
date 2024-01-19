@@ -4,6 +4,8 @@ import Main.GamePanel;
 import entity.Entity;
 import entity.Projectile;
 
+import java.awt.*;
+
 public class OBJ_Fireball extends Projectile {
     GamePanel gp;
     public OBJ_Fireball(GamePanel gp) {
@@ -39,5 +41,23 @@ public class OBJ_Fireball extends Projectile {
 
     public void subtractResource(Entity user){
         user.mana -= useCost;
+    }
+
+    public Color getParticleColor(){ //this indicates the color of the particle
+        Color color= new Color(240,50,0);
+        return color;
+    }
+    public int getParticleSize(){// this indicates the size of the particle
+        int size=10;
+        return size;
+    }
+    public int getParticleSpeed(){ //this indicates the speed of the particle
+        int speed=1;
+        return speed;
+    }
+
+    public int getParticleMaxLife(){ //this indicates how long the particle will last
+        int maxLife=20;
+        return maxLife;
     }
 }
