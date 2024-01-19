@@ -53,6 +53,8 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     //part 9 Sound part ends
 
 
+    Config config= new Config(this);
+
 
     //>so to do this animation in our game we need to create a time in our game we need to start this game clock.
     // and to do that we will use a class called Thread and i will mane this gameThread.
@@ -101,6 +103,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public final int dialogueState=3;
     public final int characterState=4;
     public final int optionState=5;
+    public final int gameOverState=6;
 
 
 
