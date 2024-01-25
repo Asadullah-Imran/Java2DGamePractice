@@ -31,6 +31,8 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public  int maxWorldCol;
     public final int worldWidth=tileSize* maxScreenCol;
     public final int worldHeight=tileSize* maxScreenRow;
+    public final int maxMap=10;
+    public int currentMap=0;
 
 
 
@@ -61,10 +63,10 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
             // $$$$$$$$$ Entity and Object $$$$$$$$$
 
     public Player player= new Player(this,keyHandler);
-    public Entity obj[]= new Entity[20]; //set the number of objects 10;
-    public Entity npc[]= new Entity[10]; //set the number of 10
-    public Entity monster[]= new Entity[20];
-    public InteractiveTile iTile[]= new InteractiveTile[50];
+    public Entity obj[][]= new Entity[maxMap][20]; //set the number of objects 10;
+    public Entity npc[][]= new Entity[maxMap][10]; //set the number of 10
+    public Entity monster[][]= new Entity[maxMap][20];
+    public InteractiveTile iTile[][]= new InteractiveTile[maxMap][50];
 
     //Now creating the arrayList
     public ArrayList<Entity>projectileList= new ArrayList<>();
@@ -80,6 +82,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public final int characterState=4;
     public final int optionState=5;
     public final int gameOverState=6;
+    public final int transitionState=7;
 
 
     //>so to do this animation in our game we need to create a time in our game we need to start this game clock.
@@ -179,20 +182,20 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
             player.update();
 
             //NPC UPDATE
-            for(int i=0; i<npc.length; i++){
-                if(npc[i] !=null){
-                    npc[i].update();
+            for(int i=0; i<npc[currentMap].length; i++){
+                if(npc[currentMap][i] !=null){
+                    npc[currentMap][i].update();
                 }
             }
 
             //Monster UPDATE
-            for(int i=0; i<monster.length; i++){
-                if(monster[i] !=null){
-                    if(monster[i].alive==true&&monster[i].dying==false){
-                        monster[i].update();
-                    } else if (monster[i].alive==false) {
-                        monster[i].checkDrop();
-                        monster[i]=null;
+            for(int i=0; i<monster[currentMap].length; i++){
+                if(monster[currentMap][i] !=null){
+                    if(monster[currentMap][i].alive==true&&monster[currentMap][i].dying==false){
+                        monster[currentMap][i].update();
+                    } else if (monster[currentMap][i].alive==false) {
+                        monster[currentMap][i].checkDrop();
+                        monster[currentMap][i]=null;
                     }
                 }
             }
@@ -218,9 +221,9 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
                 }
             }
             //Interactive TILEs  UPDATE
-            for(int i=0;i<iTile.length;i++) {
-                if(iTile[i] != null){
-                    iTile[i].update();
+            for(int i=0;i<iTile[currentMap].length;i++) {
+                if(iTile[currentMap][i] != null){
+                    iTile[currentMap][i].update();
                 }
             }
 
@@ -262,9 +265,9 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
             //Drawing the tile [For GAME SCREEN]
             tileM.draw(g2);
             //drawing the interactive tile
-            for(int i=0;i< iTile.length;i++){
-                if(iTile[i]!=null){
-                    iTile[i].draw(g2);
+            for(int i=0;i< iTile[currentMap].length;i++){
+                if(iTile[currentMap][i]!=null){
+                    iTile[currentMap][i].draw(g2);
                 }
             }
 
@@ -274,21 +277,21 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
             entityList.add(player);
 
             //add npc entity TO the list.
-            for(int i=0; i<npc.length; i++){
-                if(npc[i]!=null){
-                    entityList.add(npc[i]);
+            for(int i=0; i<npc[currentMap].length; i++){
+                if(npc[currentMap][i]!=null){
+                    entityList.add(npc[currentMap][i]);
                 }
             }
             //add object to list
-            for(int i=0; i<obj.length; i++){
-                if(obj[i]!=null){
-                    entityList.add(obj[i]);
+            for(int i=0; i<obj[currentMap].length; i++){
+                if(obj[currentMap][i]!=null){
+                    entityList.add(obj[currentMap][i]);
                 }
             }
             //add monster to list
-            for(int i=0; i<monster.length; i++){
-                if(monster[i]!=null){
-                    entityList.add(monster[i]);
+            for(int i=0; i<monster[currentMap].length; i++){
+                if(monster[currentMap][i]!=null){
+                    entityList.add(monster[currentMap][i]);
                 }
             }
             //add projectile to list

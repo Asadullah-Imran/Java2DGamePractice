@@ -118,9 +118,10 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
             }
 
         }
-        if(code==KeyEvent.VK_R) { //VK_T means if user press T then the action will call.
-            gp.tileM.loadMap("/maps/worldV2.txt");
-        }
+        //This code is for load map when i change the map...
+//        if(code==KeyEvent.VK_R) { //VK_T means if user press T then the action will call.
+//            gp.tileM.loadMap("/maps/worldV2.txt");
+//        }
 
 
 
