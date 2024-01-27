@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public final int tileSize =originalTitleSize*scale; // now it will show the tiles size to the screen
 
     //$$$ now screen size $$$
-    public final int maxScreenCol=16; //here will be 16 column of titles
+    public final int maxScreenCol=20; //here will be 16 column of titles
     public final int maxScreenRow=12; //here will be 12 row of titles
 
     public final int screenWidth= tileSize*maxScreenCol; //768 pixel width
@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public final int worldWidth=tileSize* maxScreenCol;
     public final int worldHeight=tileSize* maxScreenRow;
     public final int maxMap=10;
-    public int currentMap=0;
+    public int currentMap=1;
 
 
 
@@ -83,6 +83,7 @@ public class GamePanel extends JPanel implements Runnable  { //so my Game panel 
     public final int optionState=5;
     public final int gameOverState=6;
     public final int transitionState=7;
+    public final int tradeState=8;
 
 
     //>so to do this animation in our game we need to create a time in our game we need to start this game clock.

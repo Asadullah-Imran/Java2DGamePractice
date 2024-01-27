@@ -50,6 +50,10 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
         else if (gp.gameState==gp.gameOverState) {
             gameOverState(code);
         }
+        //Trade STATE
+        else if (gp.gameState==gp.tradeState) {
+            tradeState(code);
+        }
     }
 
     //METHOD for ALL GAME STATE
@@ -139,34 +143,11 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
     public void characterState(int code){
         if(code==KeyEvent.VK_C){ //VK_C means if user press C then
             gp.gameState=gp.playState;
-        }if(code==KeyEvent.VK_W){ //VK_W means if user press W then
-            if(gp.ui.slotRow!=0){
-            gp.ui.slotRow--;
-            gp.playSE(9);
-            }
-        }
-        if(code==KeyEvent.VK_S){ //VK_S means if user press S then
-            if(gp.ui.slotRow!=3) {
-                gp.ui.slotRow++;
-                gp.playSE(9);
-            }
-        }
-        if(code==KeyEvent.VK_A){ //VK_A means if user press A then
-            if(gp.ui.slotCol!=0) {
-                gp.ui.slotCol--;
-                gp.playSE(9);
-            }
-        }
-        if(code==KeyEvent.VK_D){ //VK_D means if user press D then
-            if(gp.ui.slotCol!=4) {
-                gp.ui.slotCol++;
-                gp.playSE(9);
-            }
         }
         if(code==KeyEvent.VK_ENTER){
             gp.player.selectItem();
         }
-
+        playerInventory(code);
     }
 
 
@@ -249,6 +230,85 @@ public class KeyHandler implements KeyListener { //KeyListenr=> this listener in
             else if(gp.ui.commandNum==1){
                 gp.gameState=gp.titleState;
                 gp.restart();
+            }
+        }
+    }
+
+
+    public void tradeState(int code){
+        if(code == KeyEvent.VK_ENTER){
+            enterPressed=true;
+        }
+        if(gp.ui.subState==0){
+            if(code== KeyEvent.VK_W){
+                gp.ui.commandNum--;
+                if(gp.ui.commandNum<0){
+                    gp.ui.commandNum=2;
+                }
+            } else if (code==KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if(gp.ui.commandNum>2){
+                    gp.ui.commandNum=0;
+                }
+            }
+        }
+        if(gp.ui.subState==1){
+            npcInventory(code);
+            if(code==KeyEvent.VK_ESCAPE){
+                gp.ui.subState=0;
+            }
+        }
+    }
+    public void playerInventory(int code){
+        if(code==KeyEvent.VK_W){ //VK_W means if user press W then
+            if(gp.ui.playerSlotRow!=0){
+                gp.ui.playerSlotRow--;
+                gp.playSE(9);
+            }
+        }
+        if(code==KeyEvent.VK_S){ //VK_S means if user press S then
+            if(gp.ui.playerSlotRow!=3) {
+                gp.ui.playerSlotRow++;
+                gp.playSE(9);
+            }
+        }
+        if(code==KeyEvent.VK_A){ //VK_A means if user press A then
+            if(gp.ui.playerSlotCol!=0) {
+                gp.ui.playerSlotCol--;
+                gp.playSE(9);
+            }
+        }
+        if(code==KeyEvent.VK_D){ //VK_D means if user press D then
+            if(gp.ui.playerSlotCol!=4) {
+                gp.ui.playerSlotCol++;
+                gp.playSE(9);
+            }
+        }
+    }
+
+    public void npcInventory(int code){
+        if(code==KeyEvent.VK_W){ //VK_W means if user press W then
+            if(gp.ui.npcSlotRow!=0){
+                gp.ui.npcSlotRow--;
+                gp.playSE(9);
+            }
+        }
+        if(code==KeyEvent.VK_S){ //VK_S means if user press S then
+            if(gp.ui.npcSlotRow!=3) {
+                gp.ui.npcSlotRow++;
+                gp.playSE(9);
+            }
+        }
+        if(code==KeyEvent.VK_A){ //VK_A means if user press A then
+            if(gp.ui.npcSlotCol!=0) {
+                gp.ui.npcSlotCol--;
+                gp.playSE(9);
+            }
+        }
+        if(code==KeyEvent.VK_D){ //VK_D means if user press D then
+            if(gp.ui.npcSlotCol!=4) {
+                gp.ui.npcSlotCol++;
+                gp.playSE(9);
             }
         }
     }

@@ -21,8 +21,7 @@ public class Player extends Entity{
     //part 8 Object Interaction part ends
     public boolean attackCanceled=false;
     //INVENTORY
-    public ArrayList<Entity> inventory= new ArrayList<>();
-    public final int maxInventorySize=20;
+
 
     //Constructor starts
     public Player(GamePanel gp, KeyHandler keyHandler){
@@ -57,12 +56,9 @@ public class Player extends Entity{
         setItems();
     }
     public void setDefaultValues(){
-//        worldX= gp.tileSize*23;
-//        worldY= gp.tileSize*21;
-        worldX= gp.tileSize*59;
-        worldY= gp.tileSize*85;
+        setDefaultPositions();
         speed=4;
-        direction="down";
+
 
         //Player Status;
         level=1;
@@ -87,8 +83,8 @@ public class Player extends Entity{
     }
 
     public void setDefaultPositions(){
-        worldX=gp.tileSize*23;
-        worldY=gp.tileSize*21;
+        worldX=gp.tileSize*59;
+        worldY=gp.tileSize*85;
         direction="down";
     }
     public void restoreLifeAndMana(){
@@ -438,7 +434,7 @@ public class Player extends Entity{
 
 
     public void selectItem(){
-        int itemIndex=gp.ui.getItemIndexOnSlot();
+        int itemIndex=gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol,gp.ui.playerSlotRow);
         if(itemIndex<inventory.size()){
             Entity selectedItem=inventory.get(itemIndex);
             if(selectedItem.type==type_sword|| selectedItem.type==type_axe){
